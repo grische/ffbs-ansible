@@ -1,0 +1,24 @@
+---
+- name: Install required packages
+  become: true
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - nginx
+    - git
+- name: Configure nginx
+  become: true
+  template:
+    src: firmware.conf.j2
+    dest: /etc/nginx/sites-enabled/firmware
+  notify:
+    - Reload nginx
+- name: Remove nginx default config
+  become: true
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+- name: Install from git
+  become: true
+  git:
+    repo: 'https://github.com/ffbs/freifunk-firmware-index.git'
+    dest: /var/www/firmware

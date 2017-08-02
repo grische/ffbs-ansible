@@ -1,0 +1,4 @@
+---
+- hosts: WebServers
+  roles:
+    - firmware-index
