@@ -1,0 +1,11 @@
+---
+- name: Install required packages
+  become: true
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - nginx
+- name: Remove nginx default config
+  become: true
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent

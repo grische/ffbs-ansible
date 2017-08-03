@@ -1,4 +1,5 @@
 ---
 - hosts: WebServers
   roles:
+    - nginx
     - firmware-index
