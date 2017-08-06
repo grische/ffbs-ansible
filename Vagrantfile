@@ -6,8 +6,13 @@ Vagrant.configure("2") do |config|
     config.vm.network "public_network"
 
     config.vm.provision "ansible" do |ansible|
+        ansible.verbose = "v"
         ansible.playbook = "playbook.yml"
-        ansible.inventory_path = "vagrant_inventory.ini"
+        ansible.groups = {
+            "WebServers" => ["web"],
+            "Concentrators" => ["concentrator"],
+            "Clients" => ["client"],
+        }
     end
 
     config.vm.define "web", autostart: false do |web|
