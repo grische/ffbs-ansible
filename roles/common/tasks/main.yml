@@ -1,2 +1,3 @@
 - include: hosts.yml
 - include: std-packages.yml
+- include: sysstat.yml
