@@ -1,1 +1,2 @@
 - include: hosts.yml
+- include: std-packages.yml
