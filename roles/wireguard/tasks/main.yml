@@ -1,0 +1,6 @@
+- name: Install wireguard packages
+  become: true
+  apt: name={{ item }} state=present default_release=unstable
+  with_items:
+    - wireguard-dkms
+    - wireguard-tools

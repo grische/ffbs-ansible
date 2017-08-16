@@ -1,0 +1,3 @@
+# ansible-galaxy install -r requirements.yml
+- src: debops.apt
+- src: debops.apt_preferences

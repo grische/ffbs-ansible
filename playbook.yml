@@ -1,8 +1,13 @@
 ---
 - hosts: all
+  become: True
   roles:
+    - role: debops.apt_preferences
+    - role: debops.apt
     - common
+    - wireguard
 - hosts: WebServers
+  become: True
   roles:
     - nginx
     - firmware-index
