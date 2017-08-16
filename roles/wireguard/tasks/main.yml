@@ -1,3 +1,6 @@
+- name: Install kernel-herader packages
+  become: true
+  apt: name=linux-headers-{{ apt__architecture }} state=present default_release=stable
 - name: Install wireguard packages
   become: true
   apt: name={{ item }} state=present default_release=unstable
