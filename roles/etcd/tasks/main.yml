@@ -1,0 +1,6 @@
+- name: Install etcd packages
+  become: true
+  apt: name={{ item }} state=present default_release=unstable
+  with_items:
+    - etcd-client
+    - etcd-server

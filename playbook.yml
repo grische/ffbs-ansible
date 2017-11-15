@@ -11,3 +11,7 @@
   roles:
     - nginx
     - firmware-index
+- hosts: Concentrators
+  become: True
+  roles:
+    - etcd
