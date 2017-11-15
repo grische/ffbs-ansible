@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "playbook.yml"
         ansible.groups = {
             "WebServers" => ["web"],
-            "Concentrators" => ["concentrator"],
+            "Concentrators" => ["concentrator1", "concentrator2", "concentrator3"],
             "Clients" => ["client"],
         }
     end
@@ -19,8 +19,16 @@ Vagrant.configure("2") do |config|
         web.vm.hostname = "web"
     end
 
-    config.vm.define "concentrator" do |concentrator|
-        concentrator.vm.hostname = "concentrator"
+    config.vm.define "concentrator1" do |concentrator|
+        concentrator.vm.hostname = "concentrator1"
+    end
+
+    config.vm.define "concentrator2" do |concentrator|
+        concentrator.vm.hostname = "concentrator2"
+    end
+
+    config.vm.define "concentrator3" do |concentrator|
+        concentrator.vm.hostname = "concentrator3"
     end
 
     config.vm.define "client" do |client|
