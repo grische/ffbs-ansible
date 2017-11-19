@@ -3,6 +3,11 @@
   with_items:
     - etcd-client
     - etcd-server
+  register:
+    etcd_install
+- name: Enable etcd service
+  command: "systemctl enable etcd"
+  when: etcd_install.changed
 - name: Configure etcd
   template:
     src: "etcd.j2"
