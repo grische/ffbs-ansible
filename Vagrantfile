@@ -13,6 +13,11 @@ Vagrant.configure("2") do |config|
             "Concentrators" => ["concentrator1", "concentrator2", "concentrator3"],
             "Clients" => ["client"],
         }
+        ansible.host_vars = {
+            "concentrator1" => {"etcd_peer_ip" => "192.168.122.11"},
+            "concentrator2" => {"etcd_peer_ip" => "192.168.122.12"},
+            "concentrator3" => {"etcd_peer_ip" => "192.168.122.13"},
+        }
     end
 
     config.vm.define "web", autostart: false do |web|

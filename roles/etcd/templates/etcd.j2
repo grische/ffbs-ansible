@@ -1,0 +1,7 @@
+ETCD_NAME="{{inventory_hostname}}"
+ETCD_DATA_DIR="/var/lib/etcd/ffbs-vagrant"
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{etcd_peer_ip}}:2380"
+ETCD_INITIAL_CLUSTER="{{etcd_initial_cluster}}"
+ETCD_INITIAL_CLUSTER_STATE="new"
+ETCD_INITIAL_CLUSTER_TOKEN="ffbs-vagrant-etcd-cluster"
+ETCD_LISTEN_PEER_URLS="http://{{etcd_peer_ip}}:2380"

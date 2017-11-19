@@ -1,0 +1,4 @@
+---
+- name: Restart etcd
+  become: true
+  systemd: name=etcd state=restarted no_block=yes

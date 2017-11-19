@@ -1,6 +1,18 @@
 - name: Install etcd packages
-  become: true
   apt: name={{ item }} state=present default_release=unstable
   with_items:
     - etcd-client
     - etcd-server
+- name: Configure etcd
+  template:
+    src: "etcd.j2"
+    dest: "/etc/default/etcd"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+    - Restart etcd
+- name: Make etcd v3 API the default
+  copy:
+    dest: "/etc/profile.d/etcd.sh"
+    content: "export ETCDCTL_API=3\n"
