@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "debian/stretch64"
-    config.vm.network "public_network"
+    #config.vm.network "public_network"
 
     config.vm.provision "ansible" do |ansible|
         ansible.verbose = "v"
@@ -21,14 +21,23 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "concentrator1" do |concentrator|
         concentrator.vm.hostname = "concentrator1"
+        concentrator.vm.network :private_network,
+            :ip => "192.168.122.11",
+            :libvirt__network_name => "backbone"
     end
 
     config.vm.define "concentrator2" do |concentrator|
         concentrator.vm.hostname = "concentrator2"
+        concentrator.vm.network :private_network,
+            :ip => "192.168.122.12",
+            :libvirt__network_name => "backbone"
     end
 
     config.vm.define "concentrator3" do |concentrator|
         concentrator.vm.hostname = "concentrator3"
+        concentrator.vm.network :private_network,
+            :ip => "192.168.122.13",
+            :libvirt__network_name => "backbone"
     end
 
     config.vm.define "client" do |client|
