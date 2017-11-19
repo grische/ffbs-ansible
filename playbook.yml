@@ -15,3 +15,9 @@
   become: True
   roles:
     - etcd
+- hosts:
+  - client
+  - concentrator1
+  become: True
+  roles:
+  -  python-dev
