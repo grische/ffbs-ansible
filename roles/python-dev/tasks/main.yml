@@ -1,5 +1,8 @@
 - name: Install python development packages
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present default_release=unstable
   with_items:
-    - python3-pip
-    - python3-venv
+    - python3.6
+    - python3.6-venv
+- name: Prepare venv
+  become: false
+  command: "/vagrant/python-dev/setup.sh"

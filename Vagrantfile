@@ -5,6 +5,9 @@ Vagrant.configure("2") do |config|
     config.vm.box = "debian/stretch64"
     #config.vm.network "public_network"
 
+    config.vm.synced_folder ".", "/vagrant", type: "rsync",
+        rsync__exclude: ".git/"
+
     config.vm.provision "ansible" do |ansible|
         ansible.verbose = "v"
         ansible.playbook = "playbook.yml"
