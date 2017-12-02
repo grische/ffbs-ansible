@@ -1,0 +1,11 @@
+{% set peer = hostvars[item] %}
+{% set ifname = peer.wg_peer_ifname %}
+[Interface]
+ListenPort = {{ peer.wg_peer_port }}
+PrivateKey = {{ wg_private_key }}
+
+[Peer]
+PublicKey = {{ peer.wg_public_key }}
+AllowedIPs = 0.0.0.0/0, ::/0
+Endpoint = {{ peer.wg_listen_ip}}:{{wg_peer_port}}
+PersistentKeepalive = 15

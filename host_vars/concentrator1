@@ -1,0 +1,7 @@
+router_id: '172.16.1.1'
+wg_private_key: 'kNq4cN+FEPDO9ZfE3YIlnJiWG7RV2J/yyZic18IQY0M='
+wg_public_key: 'LfwcsPGyih7XpzUHCEaCpoJWP0JzYOFv9ElfItlgAiM='
+wg_backbone_id: '1'
+wg_listen_ip: '192.168.122.11'
+wg_peer_ifname: 'wg-c1'
+wg_peer_port: 2301

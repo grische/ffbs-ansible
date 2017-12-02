@@ -15,6 +15,16 @@
   become: True
   roles:
     - etcd
+- hosts: Concentrators
+  become: True
+  roles:
+    - bird
+- hosts:
+  - Concentrators
+  - WebServers
+  become: True
+  roles:
+    - wireguard-backbone
 - hosts:
   - client
   - concentrator1

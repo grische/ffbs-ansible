@@ -1,0 +1,10 @@
+{% set peer = hostvars[item] %}
+{% set ifname = peer.wg_peer_ifname %}
+auto {{ ifname }}
+iface {{ ifname }} inet static
+	address 172.16.1.{{ wg_backbone_id }}
+	pointopoint 172.16.1.{{ peer.wg_backbone_id }}
+	pre-up ip link add {{ ifname }} type wireguard
+	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
+	pre-up ip addr add fe80::{{ wg_backbone_id }} peer fe80::{{ peer.wg_backbone_id }} dev {{ ifname }}
+	post-down ip link del {{ ifname }}
