@@ -1,9 +1,12 @@
-- name: Install kernel-header packages
+- name: Install and upgrade kernel-image/-header packages
   become: true
-  apt: name=linux-headers-{{ apt__architecture }} state=present default_release=stable
+  apt: name={{ item }} state=latest default_release=stable
+  with_items:
+  - linux-image-{{ apt__architecture }}
+  - linux-headers-{{ apt__architecture }}
 - name: Install wireguard packages
   become: true
-  apt: name={{ item }} state=present default_release=unstable
+  apt: name={{ item }} state=latest default_release=unstable
   with_items:
     - wireguard-dkms
     - wireguard-tools
