@@ -4,9 +4,27 @@
   with_items:
   - linux-image-{{ apt__architecture }}
   - linux-headers-{{ apt__architecture }}
+  - needrestart
 - name: Install wireguard packages
   become: true
   apt: name={{ item }} state=latest default_release=unstable
   with_items:
     - wireguard-dkms
     - wireguard-tools
+- name: Check if reboot is required
+  command: needrestart -b
+  register: needrestart
+  changed_when: "'NEEDRESTART-KSTA: 1' not in needrestart.stdout"
+- name: Reboot
+  when: needrestart.changed
+  shell: "systemd-run --on-active=1 systemctl reboot"
+  async: 1
+  poll: 0
+- name: Wait for connection
+  when: needrestart.changed
+  wait_for_connection:
+    delay: 10
+    timeout: 180
+- name: Gather facts again
+  when: needrestart.changed
+  setup:
