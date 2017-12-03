@@ -11,3 +11,17 @@
   with_items: '{{ groups.Concentrators | difference([inventory_hostname])}}'
   notify:
   - Activate network interfaces
+
+- name: Install etcd-wireguard-export service
+  copy: "{{ item }}"
+  with_items:
+    - { src: 'etcd-wireguard-export.service', dest: '/etc/systemd/system/' }
+    - { src: 'etcd-wireguard-export.py', dest: '/srv/', mode: 0755 }
+    - { src: 'wireguard.py', dest: '/srv/', mode: 0755}
+
+- name: Enable and start etcd-wireguard-export.service
+  systemd:
+    daemon_reload: yes
+    name: etcd-wireguard-export.service
+    state: started
+    enabled: yes

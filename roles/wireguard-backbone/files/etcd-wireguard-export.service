@@ -1,0 +1,10 @@
+[Unit]
+Description=Export wireguard status to etcd
+
+[Service]
+Type=simple
+ExecStart=/srv/etcd-wireguard-export.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
