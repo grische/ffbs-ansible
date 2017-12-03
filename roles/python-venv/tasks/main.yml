@@ -1,0 +1,14 @@
+- name: Install python development packages
+  apt: name={{ item }} state=present default_release=unstable
+  with_items:
+    - python3.6
+    - python3.6-venv
+- name: Create /srv/venv
+  shell: "python3.6 -m venv /srv/venv"
+  args:
+    creates: "/srv/venv"
+- name: Prepare /srv/venv
+  shell: |
+    . /srv/venv/bin/activate
+
+    pip install --upgrade aioetcd3 aiohttp
