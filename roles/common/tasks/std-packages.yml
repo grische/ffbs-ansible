@@ -21,6 +21,7 @@
     - tmux
     - unattended-upgrades
     - vim-nox
+    - jq
 - name: Remove useless packages
   become: true
   apt: name={{ item }} state=absent purge=yes
