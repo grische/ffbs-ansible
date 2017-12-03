@@ -1,0 +1,7 @@
+- name: Install node packages
+  apt: name={{ item }} state=present
+  with_items:
+    - dnsmasq
+    - batctl
+    - bridge-utils
+

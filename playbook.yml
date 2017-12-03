@@ -11,23 +11,26 @@
   roles:
     - nginx
     - firmware-index
+- hosts:
+  - Concentrators
+  - WebServers
+  - Exits
+  become: True
+  roles:
+    - wireguard-backbone
 - hosts: Concentrators
   become: True
   roles:
     - etcd
-- hosts: Concentrators
-  become: True
-  roles:
     - bird
-- hosts:
-  - Concentrators
-  - WebServers
+- hosts: Nodes
   become: True
   roles:
-    - wireguard-backbone
+    - node
 - hosts:
   - client
   - concentrator1
+  - node1
   become: True
   roles:
   -  python-dev

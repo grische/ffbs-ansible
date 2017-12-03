@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
             "WebServers" => ["web"],
             "Concentrators" => ["concentrator1", "concentrator2", "concentrator3"],
             "Clients" => ["client"],
+            "Exits" => ["exit1"],
+            "Nodes" => ["node1"],
         }
         #ansible.tags = "devel"
     end
@@ -46,6 +48,20 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "client" do |client|
         client.vm.hostname = "client"
+    end
+
+    config.vm.define "exit1" do |concentrator|
+        concentrator.vm.hostname = "exit1"
+        concentrator.vm.network :private_network,
+            :ip => "192.168.122.21",
+            :libvirt__network_name => "backbone"
+    end
+
+    config.vm.define "node1" do |concentrator|
+        concentrator.vm.hostname = "node1"
+        concentrator.vm.network :private_network,
+            :ip => "192.168.122.101",
+            :libvirt__network_name => "backbone"
     end
 
     config.vm.provider "virtualbox" do |vb|
