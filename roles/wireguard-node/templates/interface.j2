@@ -1,0 +1,9 @@
+{% set peer = hostvars[item] %}
+{% set ifname = peer.wg_peer_ifname %}
+auto {{ ifname }}
+iface {{ ifname }} inet static
+	address {{ wg_node_address_v4 }}
+	gateway {{ peer.wg_gateway_v4 }}
+	pre-up ip link add {{ ifname }} type wireguard
+	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
+	post-down ip link del {{ ifname }}

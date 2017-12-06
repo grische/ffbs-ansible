@@ -24,10 +24,12 @@
   roles:
     - etcd
     - bird
+    - wireguard-concentrator
 - hosts: Nodes
   become: True
   roles:
     - node
+    - wireguard-node
 - hosts:
   - client
   - concentrator1

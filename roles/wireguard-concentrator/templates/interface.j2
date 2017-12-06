@@ -1,0 +1,7 @@
+{% set ifname = "wg-nodes" %}
+auto {{ ifname }}
+iface {{ ifname }} inet static
+	address {{ wg_gateway_v4 }}/8
+	pre-up ip link add {{ ifname }} type wireguard
+	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
+	post-down ip link del {{ ifname }}

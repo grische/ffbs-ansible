@@ -1,0 +1,6 @@
+wg_private_key: 'AKjz2J9eMFSxdSZ77H/dzFlqnK+1JIkoyQWzQowKSGA='
+wg_public_key: 'hQ6zwOp1jqR++sGM+I5iQsNZ2XLO4pYd9QiK/ACJnGs='
+wg_node_range_v4: '10.1.0.0/24'
+wg_node_address_v4: '10.1.0.1/24'
+wg_node_range_v6: '2001:bf7:380:0:1::/64'
+wg_node_address_v6: '2001:bf7:380:0:1::1/64'

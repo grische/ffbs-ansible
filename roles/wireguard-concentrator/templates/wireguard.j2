@@ -1,0 +1,11 @@
+[Interface]
+ListenPort = 2300
+PrivateKey = {{ wg_private_key }}
+
+{% for peername in groups["Nodes"] %}
+{% set peer = hostvars[peername] %}
+[Peer]
+PublicKey = {{ peer.wg_public_key }}
+AllowedIPs = {{ peer.wg_node_range_v4 }},{{ peer.wg_node_range_v6 }}
+PersistentKeepalive = 15
+{% endfor %}

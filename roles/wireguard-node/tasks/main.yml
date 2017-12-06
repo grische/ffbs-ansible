@@ -1,0 +1,13 @@
+- name: Create wireguard configuration
+  template:
+    src: 'wireguard.j2'
+    dest: '/etc/wireguard/{{ hostvars[item].wg_peer_ifname }}.conf'
+  with_items: '{{ groups.Concentrators }}'
+
+- name: Create wireguard interfaces
+  template:
+    src: 'interface.j2'
+    dest: '/etc/network/interfaces.d/{{ hostvars[item].wg_peer_ifname }}'
+  with_items: '{{ groups.Concentrators }}'
+  notify:
+  - Activate network interfaces
