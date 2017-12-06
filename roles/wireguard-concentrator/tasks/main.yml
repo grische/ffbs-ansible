@@ -2,8 +2,8 @@
   template:
     src: 'wireguard.j2'
     dest: '/etc/wireguard/wg-nodes.conf'
-  register:
-    wg_nodes_conf
+  notify:
+  - Reconfigure wg-nodes
 
 - name: Create wireguard interfaces
   template:
@@ -11,7 +11,3 @@
     dest: '/etc/network/interfaces.d/wg-nodes'
   notify:
   - Activate network interfaces
-
-- name: Reconfigure wireguard
-  when: wg_nodes_conf.changed
-  command: wg setconf wg-nodes /etc/wireguard/wg-nodes.conf
