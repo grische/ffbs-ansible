@@ -1,0 +1,8 @@
+router_id: '172.16.1.101'
+etcd_peer_ip: '172.16.1.101'
+wg_private_key: 'iDFxhD1maJfvuGFtHNWbgxK/d7lZy73sxO6Gz5ULL3Q='
+wg_public_key: 'C9tO7v6fxnMlWX2sn6xZIj6xPDUwCcScqVn7SLrtvxU='
+wg_backbone_id: '101'
+wg_listen_ip: '192.168.122.101'
+wg_peer_ifname: 'wg-e1'
+wg_peer_port: 2401
