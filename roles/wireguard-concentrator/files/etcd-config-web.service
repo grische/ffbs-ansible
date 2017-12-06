@@ -1,0 +1,10 @@
+[Unit]
+Description=Serve client configurations from etcd via HTTP
+
+[Service]
+Type=simple
+ExecStart=/srv/etcd-config-web.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

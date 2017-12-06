@@ -11,3 +11,20 @@
     dest: '/etc/network/interfaces.d/wg-nodes'
   notify:
   - Activate network interfaces
+
+- name: Install etcd-config-web service
+  copy:
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: 'etcd-config-web.service', dest: '/etc/systemd/system/', mode: 644 }
+    - { src: 'etcd-config-web.py', dest: '/srv/', mode: 755 }
+
+- name: Enable and start etcd-config-web.service
+  systemd:
+    daemon_reload: yes
+    name: etcd-config-web.service
+    state: started
+    enabled: yes
+
