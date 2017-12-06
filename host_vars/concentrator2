@@ -3,6 +3,6 @@ etcd_peer_ip: '172.16.1.2'
 wg_private_key: 'eOFvNbv7OPDtSGMuHTxBDoZuSULeqCsgCZHBK+Di52c='
 wg_public_key: 'whT6vlbUGSBKzKJGlxhevJf/PU/Jvdi9P6oSzAZ0i0E='
 wg_backbone_id: '2'
-wg_listen_ip: '192.168.122.12'
+wg_hostname: 'concentrator2'
 wg_peer_ifname: 'wg-c2'
 wg_peer_port: 2302

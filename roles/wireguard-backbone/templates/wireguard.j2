@@ -7,5 +7,5 @@ PrivateKey = {{ wg_private_key }}
 [Peer]
 PublicKey = {{ peer.wg_public_key }}
 AllowedIPs = 0.0.0.0/0, ::/0
-Endpoint = {{ peer.wg_listen_ip}}:{{wg_peer_port}}
+Endpoint = {{ peer.wg_hostname}}:{{wg_peer_port}}
 PersistentKeepalive = 15
