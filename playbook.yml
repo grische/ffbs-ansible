@@ -17,17 +17,20 @@
   - Exits
   become: True
   roles:
+    - vrf
     - python-venv
     - wireguard-backbone
 - hosts: Concentrators
   become: True
   roles:
+    - vrf
     - etcd
     - bird
     - wireguard-concentrator
 - hosts: Nodes
   become: True
   roles:
+    - vrf
     - node
     - wireguard-node
 - hosts:

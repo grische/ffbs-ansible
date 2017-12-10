@@ -1,0 +1,13 @@
+- name: Configure routing table
+  lineinfile:
+    dest: "/etc/iproute2/rt_tables"
+    line: "10\tfreifunk"
+- name: Configure vrf
+  template:
+    src: "interface.j2"
+    dest: "/etc/network/interfaces.d/00-vrf-freifunk"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+  - Activate network interfaces
