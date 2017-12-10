@@ -23,6 +23,7 @@
     - vim-nox
     - jq
     - curl
+    - tcpdump
 - name: Remove useless packages
   become: true
   apt: name={{ item }} state=absent purge=yes
