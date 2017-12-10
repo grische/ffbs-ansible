@@ -11,4 +11,4 @@
   shell: |
     . /srv/venv/bin/activate
 
-    pip install --upgrade aioetcd3 aiohttp
+    pip install --upgrade aioetcd3 aiohttp pyroute2

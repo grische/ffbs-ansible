@@ -9,5 +9,4 @@ fi
 
 . venv/bin/activate
 
-pip install aioetcd3
-
+pip install aioetcd3 aiohttp pyroute2
