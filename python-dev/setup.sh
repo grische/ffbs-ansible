@@ -9,4 +9,5 @@ fi
 
 . venv/bin/activate
 
-pip install aioetcd3 aiohttp pyroute2
+cd /vagrant/python-dev/
+pip install -e .

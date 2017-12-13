@@ -6,7 +6,7 @@ from pprint import pprint
 from pyroute2 import IPRoute
 from pyroute2.netlink.rtnl import rt_type
 
-import wireguard
+from .wireguard import get_dict
 
 TABLE = 10
 RT_PROTO = 23
@@ -21,7 +21,7 @@ IDS = {
 def get_handshake_ages():
     result = []
     now = time.time()
-    wg = wireguard.get_dict()
+    wg = get_dict()
     for iface, data in wg.items():
         peers = data['peers']
         if not len(peers)==1:

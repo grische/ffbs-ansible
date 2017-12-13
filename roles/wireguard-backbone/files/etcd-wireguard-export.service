@@ -3,7 +3,7 @@ Description=Export wireguard status to etcd
 
 [Service]
 Type=simple
-ExecStart=/srv/etcd-wireguard-export.py
+ExecStart=/srv/venv/bin/ffbs-etcd-wireguard-export
 Restart=always
 
 [Install]

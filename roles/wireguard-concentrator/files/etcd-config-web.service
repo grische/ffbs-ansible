@@ -3,7 +3,7 @@ Description=Serve client configurations from etcd via HTTP
 
 [Service]
 Type=simple
-ExecStart=/srv/etcd-config-web.py
+ExecStart=/srv/venv/bin/ffbs-etcd-config-web
 Restart=always
 
 [Install]
