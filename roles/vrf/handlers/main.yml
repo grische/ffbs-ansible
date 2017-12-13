@@ -1,4 +1,4 @@
 ---
 - name: Activate network interfaces
   become: true
-  command: ifup -a
+  command: ifup freifunk
