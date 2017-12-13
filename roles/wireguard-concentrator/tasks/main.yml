@@ -19,6 +19,7 @@
     mode: "{{ item.mode }}"
   with_items:
     - { src: 'etcd-config-web.service', dest: '/etc/systemd/system/', mode: 644 }
+    - { src: 'concentrator-route.service', dest: '/etc/systemd/system/', mode: 644 }
 
 - name: Enable and start etcd-config-web.service
   systemd:
@@ -27,3 +28,9 @@
     state: started
     enabled: yes
 
+- name: Enable and start concentrator-route.service
+  systemd:
+    daemon_reload: yes
+    name: concentrator-route.service
+    state: started
+    enabled: yes

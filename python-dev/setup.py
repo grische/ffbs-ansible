@@ -20,6 +20,7 @@ setup(name='ffbstools',
               'ffbs-etcd-put = ffbstools.put:main',
               'ffbs-etcd-config-web = ffbstools.etcdconfigweb:main',
               'ffbs-etcd-wireguard-export = ffbstools.etcdwireguardexport:main',
+              'ffbs-concentrator-route = ffbstools.concentratorroute:main',
               'ffbs-node-route = ffbstools.noderoute:main',
           ]
       },
