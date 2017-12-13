@@ -1,5 +1,5 @@
 ---
-- name: Activate network interfaces
+- name: Activate wg-nodes interface
   command: ifup wg-nodes
 
 - name: Reconfigure wg-nodes

@@ -10,4 +10,4 @@
     group: "root"
     mode: "0644"
   notify:
-  - Activate network interfaces
+  - Activate freifunk vrf interface

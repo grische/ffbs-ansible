@@ -1,5 +1,5 @@
 ---
-- name: Activate network interfaces
+- name: Activate backbone interfaces
   become: true
   command: ifup {{ hostvars[item].wg_peer_ifname }}
   with_items: '{{ groups.Concentrators | union(groups.Exits) | difference([inventory_hostname])}}'

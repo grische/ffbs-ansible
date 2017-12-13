@@ -1,4 +1,4 @@
 ---
-- name: Activate network interfaces
+- name: Activate freifunk vrf interface
   become: true
   command: ifup freifunk

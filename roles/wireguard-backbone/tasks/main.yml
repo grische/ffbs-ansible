@@ -10,7 +10,7 @@
     dest: '/etc/network/interfaces.d/{{ hostvars[item].wg_peer_ifname }}'
   with_items: '{{ groups.Concentrators | union(groups.Exits) | difference([inventory_hostname])}}'
   notify:
-  - Activate network interfaces
+  - Activate backbone interfaces
 
 - name: Install etcd-wireguard-export service
   copy:

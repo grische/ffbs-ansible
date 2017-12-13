@@ -10,4 +10,4 @@
     dest: '/etc/network/interfaces.d/{{ hostvars[item].wg_peer_ifname }}'
   with_items: '{{ groups.Concentrators }}'
   notify:
-  - Activate network interfaces
+  - Activate concentrator interfaces

@@ -10,7 +10,7 @@
     src: 'interface.j2'
     dest: '/etc/network/interfaces.d/wg-nodes'
   notify:
-  - Activate network interfaces
+  - Activate wg-nodes interface
 
 - name: Install etcd-config-web service
   copy:

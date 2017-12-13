@@ -1,4 +1,4 @@
 ---
-- name: Activate network interfaces
+- name: Activate exit interface
   become: true
   command: ifup {{ wg_exit_ifname }} -v

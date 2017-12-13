@@ -8,4 +8,4 @@
     src: 'interface.j2'
     dest: '/etc/network/interfaces.d/{{ wg_exit_ifname }}'
   notify:
-  - Activate network interfaces
+  - Activate exit interface
