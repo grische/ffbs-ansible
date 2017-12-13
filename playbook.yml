@@ -41,3 +41,8 @@
   become: True
   roles:
   -  python-dev
+- hosts:
+  - exit1
+  become: True
+  roles:
+    - wireguard-exit

@@ -1,0 +1,11 @@
+- name: Create wireguard configuration
+  template:
+    src: 'wireguard.j2'
+    dest: '/etc/wireguard/{{ wg_exit_ifname }}.conf'
+
+- name: Create wireguard interfaces
+  template:
+    src: 'interface.j2'
+    dest: '/etc/network/interfaces.d/{{ wg_exit_ifname }}'
+  notify:
+  - Activate network interfaces
