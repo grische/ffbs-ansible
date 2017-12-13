@@ -25,6 +25,7 @@
     - curl
     - tcpdump
     - mtr
+    - strace
 - name: Remove useless packages
   become: true
   apt: name={{ item }} state=absent purge=yes

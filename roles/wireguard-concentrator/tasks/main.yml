@@ -19,7 +19,6 @@
     mode: "{{ item.mode }}"
   with_items:
     - { src: 'etcd-config-web.service', dest: '/etc/systemd/system/', mode: 644 }
-    - { src: 'etcd-config-web.py', dest: '/srv/', mode: 755 }
 
 - name: Enable and start etcd-config-web.service
   systemd:

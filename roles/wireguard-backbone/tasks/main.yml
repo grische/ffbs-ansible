@@ -14,13 +14,9 @@
 
 - name: Install etcd-wireguard-export service
   copy:
-    src:  "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mode }}"
-  with_items:
-    - { src: 'etcd-wireguard-export.service', dest: '/etc/systemd/system/', mode: 644 }
-    - { src: 'etcd-wireguard-export.py', dest: '/srv/', mode: 755 }
-    - { src: 'wireguard.py', dest: '/srv/', mode: 755}
+    src:  'etcd-wireguard-export.service'
+    dest: '/etc/systemd/system/'
+    mode: 644
 
 - name: Enable and start etcd-wireguard-export.service
   systemd:

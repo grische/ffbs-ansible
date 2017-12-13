@@ -34,8 +34,11 @@ async def web_config(request):
     else:
         return web.Response(status=400)
 
-if __name__ == "__main__":
+def main():
     app = web.Application()
     app.router.add_get('/config', web_config)
     web.run_app(app, host=('::','0.0.0.0'), port=8080)
+
+if __name__ == "__main__":
+    main()
 
