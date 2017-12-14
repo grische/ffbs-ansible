@@ -1,4 +1,8 @@
-- name: Configure routing table
+- name: Configure routing protocol name
+  lineinfile:
+    dest: "/etc/iproute2/rt_protos"
+    line: "23\tfreifunk"
+- name: Configure routing table name
   lineinfile:
     dest: "/etc/iproute2/rt_tables"
     line: "10\tfreifunk"
