@@ -1,6 +1,6 @@
 - name: Install and upgrade kernel-image/-header packages
   become: true
-  apt: name={{ item }} state=latest default_release=stable
+  apt: name={{ item }} state=latest default_release=unstable
   with_items:
   - linux-image-{{ apt__architecture }}
   - linux-headers-{{ apt__architecture }}
@@ -10,6 +10,8 @@
   with_items:
     - wireguard-dkms
     - wireguard-tools
+- name: Build dkms modules
+  command: dkms autoinstall
 - name: Check if reboot is required
   command: needrestart -b
   register: needrestart
