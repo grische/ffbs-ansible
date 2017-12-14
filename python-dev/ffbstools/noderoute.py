@@ -6,7 +6,7 @@ from pprint import pprint
 from pyroute2 import IPRoute
 from pyroute2.netlink.rtnl import rt_type
 
-from .wireguard import get_dict
+from . import wireguard
 
 TABLE = 10
 RT_PROTO = 23
@@ -21,7 +21,7 @@ IDS = {
 def get_handshake_ages():
     result = []
     now = time.time()
-    wg = get_dict()
+    wg = wireguard.get_dict()
     for iface, data in wg.items():
         peers = data['peers']
         if not len(peers)==1:
@@ -79,7 +79,7 @@ def set_wg_route(oif, id):
     )
 
 
-def main():
+def update():
     active = [iface for age, iface in get_handshake_ages() if age < 180]
     #current = get_current():
     links = get_wg_links()
@@ -87,8 +87,8 @@ def main():
     assert len(current) <= 1
     current = current[0] if current else None
 
-    pprint(active)
-    pprint(current)
+    #pprint(active)
+    #pprint(current)
     if current and current in active:
         print("current route still active")
         return
@@ -100,6 +100,9 @@ def main():
     print("activating route for {}".format(active[0]))
     set_wg_route(links[active[0]], IDS[active[0]])
 
+def main():
+    update()
+    time.sleep(10)
 
 if __name__  == "__main__":
     main()

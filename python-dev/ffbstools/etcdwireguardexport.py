@@ -1,4 +1,4 @@
-#!/srv/venv/bin/python3
+#!/usr/bin/env python3
 import asyncio
 import traceback
 from socket import gethostname
