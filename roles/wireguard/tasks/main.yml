@@ -10,8 +10,6 @@
   with_items:
     - wireguard-dkms
     - wireguard-tools
-- name: Build dkms modules
-  command: dkms autoinstall
 - name: Check if reboot is required
   command: needrestart -b
   register: needrestart
@@ -26,6 +24,8 @@
   wait_for_connection:
     delay: 10
     timeout: 180
+- name: Build dkms modules
+  command: dkms autoinstall
 - name: Gather facts again
   when: needrestart.changed
   setup:
