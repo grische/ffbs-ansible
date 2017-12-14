@@ -1,3 +1,6 @@
+/.cache
 /.vagrant
 /playbook.retry
 /galaxy
+/testinfra-venv
+__pycache__/
