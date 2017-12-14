@@ -7,9 +7,16 @@
   shell: "python3.6 -m venv /srv/venv"
   args:
     creates: "/srv/venv"
+- name: Synchronize python-dev
+  become: false
+  synchronize:
+    src: python-dev/
+    dest: /vagrant/python-dev/
+    delete: yes
+    recursive: yes
 - name: Prepare /srv/venv
   shell: |
     . /srv/venv/bin/activate
 
     cd /vagrant/python-dev
-    pip install .
+    pip install --upgrade .

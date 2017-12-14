@@ -3,6 +3,13 @@
   with_items:
     - python3.6
     - python3.6-venv
+- name: Synchronize python-dev
+  become: false
+  synchronize:
+    src: python-dev/
+    dest: /vagrant/python-dev/
+    delete: yes
+    recursive: yes
 - name: Prepare venv
   become: false
   command: "/vagrant/python-dev/setup.sh"
