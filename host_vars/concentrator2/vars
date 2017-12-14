@@ -1,6 +1,6 @@
 router_id: '172.16.1.2'
 etcd_peer_ip: '172.16.1.2'
-wg_private_key: 'eOFvNbv7OPDtSGMuHTxBDoZuSULeqCsgCZHBK+Di52c='
+wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'whT6vlbUGSBKzKJGlxhevJf/PU/Jvdi9P6oSzAZ0i0E='
 wg_backbone_id: '2'
 wg_hostname: 'concentrator2'

@@ -1,4 +1,4 @@
-wg_private_key: 'AKjz2J9eMFSxdSZ77H/dzFlqnK+1JIkoyQWzQowKSGA='
+wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'hQ6zwOp1jqR++sGM+I5iQsNZ2XLO4pYd9QiK/ACJnGs='
 wg_node_range_v4: '10.1.0.0/24'
 wg_node_address_v4: '10.1.0.1'

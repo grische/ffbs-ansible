@@ -1,6 +1,6 @@
 router_id: '172.16.1.101'
 etcd_peer_ip: '172.16.1.101'
-wg_private_key: 'iDFxhD1maJfvuGFtHNWbgxK/d7lZy73sxO6Gz5ULL3Q='
+wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'C9tO7v6fxnMlWX2sn6xZIj6xPDUwCcScqVn7SLrtvxU='
 wg_backbone_id: '101'
 wg_hostname: 'exit1'
@@ -15,5 +15,3 @@ wg_exit_gateway_v6: '2a03:8600:1001:1080::1'
 wg_exit_dns: '193.180.164.2, 2a03:8600:1001::2'
 wg_exit_remote_publickey: 'T28Qn5VFzT4wiwEPd7DscwcP3Rsmq23QcnjH1N5G/wc='
 wg_exit_remote_endpoint: '193.180.164.60:51820'
-
-
