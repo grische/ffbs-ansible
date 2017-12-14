@@ -1,5 +1,5 @@
 - name: Install python development packages
-  apt: name={{ item }} state=present default_release=unstable
+  apt: name={{ item }} state=present default_release=testing
   with_items:
     - python3.6
     - python3.6-venv
