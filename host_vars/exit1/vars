@@ -15,3 +15,5 @@ wg_exit_gateway_v6: '2a03:8600:1001:1080::1'
 wg_exit_dns: '193.180.164.2, 2a03:8600:1001::2'
 wg_exit_remote_publickey: 'T28Qn5VFzT4wiwEPd7DscwcP3Rsmq23QcnjH1N5G/wc='
 wg_exit_remote_endpoint: '193.180.164.60:51820'
+
+# azire credentials in the vault file
