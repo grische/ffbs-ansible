@@ -4,7 +4,6 @@
   with_items:
   - linux-image-{{ apt__architecture }}
   - linux-headers-{{ apt__architecture }}
-  - needrestart
 - name: Install wireguard packages
   become: true
   apt: name={{ item }} state=latest default_release=unstable

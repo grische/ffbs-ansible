@@ -26,6 +26,7 @@
     - tcpdump
     - mtr
     - strace
+    - needrestart
 - name: Remove useless packages
   become: true
   apt: name={{ item }} state=absent purge=yes
