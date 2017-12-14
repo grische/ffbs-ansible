@@ -3,7 +3,7 @@
 if [ ! -d testinfra-venv ]; then
   echo "creating venv"
   python3 -m venv testinfra-venv
-  testinfra-venv/bin/pip install testinfra
+  testinfra-venv/bin/pip install testinfra textfsm
 fi
 
 . testinfra-venv/bin/activate
