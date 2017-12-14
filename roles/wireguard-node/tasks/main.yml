@@ -11,3 +11,18 @@
   with_items: '{{ groups.Concentrators }}'
   notify:
   - Activate concentrator interfaces
+
+- name: Install node systemd service
+  copy:
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: 'node-route.service', dest: '/etc/systemd/system/', mode: 644 }
+
+- name: Enable and start node-route.service
+  systemd:
+    daemon_reload: yes
+    name: node-route.service
+    state: started
+    enabled: yes
