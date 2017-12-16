@@ -1,9 +1,9 @@
-- name: Install and upgrade kernel-image/-header packages
-  become: true
-  apt: name={{ item }} state=latest default_release=unstable
-  with_items:
-  - linux-image-{{ apt__architecture }}
-  - linux-headers-{{ apt__architecture }}
+#- name: Install and upgrade kernel-image/-header packages
+#  become: true
+#  apt: name={{ item }} state=latest default_release=unstable
+#  with_items:
+#  - linux-image-{{ apt__architecture }}
+#  - linux-headers-{{ apt__architecture }}
 - name: Install wireguard packages
   become: true
   apt: name={{ item }} state=latest default_release=unstable
