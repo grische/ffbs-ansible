@@ -44,12 +44,12 @@ Vagrant.configure("2") do |config|
         client.vm.hostname = "client"
     end
 
-    config.vm.define "exit1" do |concentrator|
-        concentrator.vm.hostname = "exit1"
+    config.vm.define "exit1" do |exit|
+        exit.vm.hostname = "exit1"
     end
 
-    config.vm.define "node1" do |concentrator|
-        concentrator.vm.hostname = "node1"
+    config.vm.define "node1" do |node|
+        node.vm.hostname = "node1"
     end
 
     config.vm.provider "virtualbox" do |vb|
