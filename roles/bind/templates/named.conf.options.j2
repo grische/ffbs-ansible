@@ -1,0 +1,21 @@
+acl freifunk {
+	10.0.0.0/8;
+	172.16.0.0/16;
+	localhost;
+};
+
+options {
+	directory "/var/cache/bind";
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	dnssec-validation auto;
+
+	auth-nxdomain no;    # conform to RFC1035
+	listen-on-v6 { any; };
+
+	recursion yes;
+	allow-query { freifunk; };
+};
