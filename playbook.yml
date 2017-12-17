@@ -18,6 +18,7 @@
   become: True
   roles:
     - vrf
+    - bird
     - python-venv
     - wireguard-backbone
 - hosts: Concentrators

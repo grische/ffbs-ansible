@@ -2,7 +2,7 @@ import pytest
 from io import StringIO
 from textfsm import TextFSM
 
-testinfra_hosts = ['concentrator1', 'concentrator2', 'concentrator3']
+testinfra_hosts = ['concentrator1', 'concentrator2', 'concentrator3', 'exit1']
 
 OSPF_NEIGHBORS = TextFSM(StringIO("""
 Value RouterID (\d+(\.\d+){3})
