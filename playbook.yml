@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: all:!node2
   become: True
   roles:
     - role: debops.apt_preferences

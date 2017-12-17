@@ -52,6 +52,11 @@ Vagrant.configure("2") do |config|
         node.vm.hostname = "node1"
     end
 
+    config.vm.define "node2" do |node|
+        node.vm.box = "jluebbe/ffbs-lede"
+        node.vm.box_version = "17.01.4"
+    end
+
     config.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
     end
