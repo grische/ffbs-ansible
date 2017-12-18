@@ -52,3 +52,20 @@ and provision the machines after creating them:
 
    vagrant up
 
+Development
+===========
+
+**NOTE**: Pushing to the repository requires membership in the ffbs group and
+permissions for the repository, ask Emantor, Shoragan or Kasalehlia for those.
+
+Commit your changes, make sure that all changes pass
+
+::
+
+   vagrant provision
+
+and commit them to your repository. Then push via
+
+::
+
+   git push origin master
