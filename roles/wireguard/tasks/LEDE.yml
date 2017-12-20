@@ -1,0 +1,4 @@
+- name: Install wireguard packages
+  opkg: name={{ item }} state=present update_cache=yes
+  with_items:
+    - wireguard

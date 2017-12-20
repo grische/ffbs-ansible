@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "node2" do |node|
         node.vm.box = "jluebbe/ffbs-lede"
-        node.vm.box_version = "17.01.4"
+        node.vm.box_version = "17.01.4.1"
     end
 
     config.vm.provider "virtualbox" do |vb|

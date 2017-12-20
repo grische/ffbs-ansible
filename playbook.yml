@@ -48,3 +48,7 @@
   roles:
     - wireguard-exit
     - bind
+- hosts: node2
+  become: True
+  roles:
+    - wireguard
