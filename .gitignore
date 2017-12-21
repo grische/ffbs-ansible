@@ -3,4 +3,6 @@
 /playbook.retry
 /galaxy
 /testinfra-venv
+/etcd-ca/output
+
 __pycache__/
