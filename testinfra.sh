@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p ~/.ssh/control
+
 if [ ! -d testinfra-venv ]; then
   echo "creating venv"
   python3 -m venv testinfra-venv
