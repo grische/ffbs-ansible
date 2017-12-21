@@ -64,15 +64,17 @@ and provision the machines after creating them:
 
 Fedora specials
 ---------------
-First get vagrant > 2.0, as it is not in the repo use the CentOS `rpm https://www.vagrantup.com/downloads.html <http://www.python.org/>`_..
+First get vagrant > 2.0, as it is not in the repo use the CentOS `rpm <https://www.vagrantup.com/downloads.html>`_.
 Then install it with:
 
 ::
+
    sudo dnf install <path/to/your/vagrant.rpm>
 
 After that you need to install a plugin with a specified version of vagrant-spec. With vagrant-spec installed you can install vagrant-libvirt. Use the following to do both:
 
 ::
+
    vagrant plugin install vagrant-cucumber
    vagrant plugin install vagrant-libvirt
 
