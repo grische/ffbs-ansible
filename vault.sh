@@ -1,2 +1,2 @@
 #!/bin/bash
-gpg --batch --use-agent --decrypt vault.gpg | grep -v '#'
+gpg2 --batch --use-agent --decrypt vault.gpg | grep -v '#'
