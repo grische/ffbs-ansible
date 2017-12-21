@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 Vagrant.configure("2") do |config|
     #config.vm.box = "debian/stretch64"
     # use box with VRF support (kernel and iproute2)
@@ -64,4 +65,5 @@ Vagrant.configure("2") do |config|
         libvirt.cpus = 2
     end
 end
+
 
