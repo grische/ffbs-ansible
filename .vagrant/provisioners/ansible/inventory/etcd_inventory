@@ -1,0 +1,8 @@
+[etcd_cluster]
+concentrator1
+concentrator2
+concentrator3
+
+[etcd_clients]
+exit1
+web

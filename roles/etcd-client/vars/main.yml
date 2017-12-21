@@ -1,0 +1,2 @@
+---
+etcd_endpoints: "{% for host in groups['etcd_cluster'] %}https://{{hostvars[host]['etcd_peer_ip']}}:2379{% if not loop.last %},{% endif %}{% endfor %}"

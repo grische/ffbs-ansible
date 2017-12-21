@@ -1,2 +1,3 @@
 ---
-etcd_initial_cluster: "{% for host in groups['Concentrators'] %}{{hostvars[host]['inventory_hostname']}}=http://{{hostvars[host]['etcd_peer_ip']}}:2380{% if not loop.last %},{% endif %}{% endfor %}"
+etcd_initial_cluster: "{% for host in groups['etcd_cluster'] %}{{hostvars[host]['inventory_hostname']}}=https://{{hostvars[host]['etcd_peer_ip']}}:2380{% if not loop.last %},{% endif %}{% endfor %}"
+etcd_endpoints: "{% for host in groups['etcd_cluster'] %}https://{{hostvars[host]['etcd_peer_ip']}}:2379{% if not loop.last %},{% endif %}{% endfor %}"

@@ -4,5 +4,9 @@ iface freifunk inet manual
 	up ip route add table freifunk unreachable default metric 1024
 	up ip -6 route add table freifunk unreachable default metric 1024
 	up ip link set dev freifunk up
+	# allow transparent access to the backbone for etcd
+	up ip route add 172.16.1.0/24 dev freifunk
+	# allow transparent access to the client network
+	up ip route add 10.0.0.0/24 dev freifunk
 	down ip del link freifunk
 	down ip route flush table freifunk

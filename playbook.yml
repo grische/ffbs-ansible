@@ -21,12 +21,17 @@
     - bird
     - python-venv
     - wireguard-backbone
+- hosts: etcd_cluster
+  become: True
+  roles:
+    - etcd
+- hosts: etcd_clients
+  become: True
+  roles:
+    - etcd-client
 - hosts: Concentrators
   become: True
   roles:
-    - vrf
-    - etcd
-    - bird
     - wireguard-concentrator
 - hosts: Nodes
   become: True

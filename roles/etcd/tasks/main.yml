@@ -5,6 +5,30 @@
     - etcd-server
   register:
     etcd_install
+- name: Copy the etcd CA
+  copy:
+    src: "etcd-ca.pem"
+    dest: "/etc/ssl/etcd/"
+- name: Copy the etcd server key
+  copy:
+    src: "{{ inventory_hostname}}/etcd-server.key.pem"
+    dest: "/etc/ssl/etcd/"
+    mode: 0640
+    group: "etcd"
+- name: Copy the etcd server cert
+  copy:
+    src: "{{ inventory_hostname}}/etcd-server.cert.pem"
+    dest: "/etc/ssl/etcd/"
+    mode: 0640
+    group: "etcd"
+- name: Copy the etcd client key
+  copy:
+    src: "{{ inventory_hostname}}/etcd-client.key.pem"
+    dest: "/etc/ssl/etcd/"
+- name: Copy the etcd client cert
+  copy:
+    src: "{{ inventory_hostname}}/etcd-client.cert.pem"
+    dest: "/etc/ssl/etcd/"
 - name: Enable etcd service
   command: "systemctl enable etcd"
   when: etcd_install.changed
@@ -20,4 +44,9 @@
 - name: Make etcd v3 API the default
   copy:
     dest: "/etc/profile.d/etcd.sh"
-    content: "export ETCDCTL_API=3\n"
+    content: |
+      export ETCDCTL_API=3
+      export ETCDCTL_CACERT=/etc/ssl/etcd/etcd-ca.pem
+      export ETCDCTL_CERT=/etc/ssl/etcd/etcd-client.cert.pem
+      export ETCDCTL_KEY=/etc/ssl/etcd/etcd-client.key.pem
+      export ETCDCTL_ENDPOINTS={{etcd_endpoints}}
