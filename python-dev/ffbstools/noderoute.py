@@ -101,8 +101,9 @@ def update():
     set_wg_route(links[active[0]], IDS[active[0]])
 
 def main():
-    update()
-    time.sleep(10)
+    while True:
+        update()
+        time.sleep(10)
 
 if __name__  == "__main__":
     main()
