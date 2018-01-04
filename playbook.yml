@@ -33,7 +33,7 @@
   become: True
   roles:
     - wireguard-concentrator
-- hosts: Nodes
+- hosts: Nodes:!node2
   become: True
   roles:
     - vrf
@@ -57,3 +57,4 @@
   become: True
   roles:
     - wireguard
+    - wireguard-node-uci

@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
             "Concentrators" => ["concentrator1", "concentrator2", "concentrator3"],
             "Clients" => ["client"],
             "Exits" => ["exit1"],
-            "Nodes" => ["node1"],
+            "Nodes" => ["node1", "node2"],
         }
         #ansible.tags = "devel"
     end
