@@ -8,9 +8,9 @@ wg_peer_ifname: 'wg-e1'
 wg_peer_port: 2401
 
 wg_exit_ifname: 'wg-azire'
-wg_exit_address_v4: '10.18.1.236/24'
+wg_exit_address_v4: '10.18.1.203/24'
 wg_exit_gateway_v4: '10.18.1.1'
-wg_exit_address_v6: '2a03:8600:1001:1080::ec/64'
+wg_exit_address_v6: '2a03:8600:1001:1080::cb/64'
 wg_exit_gateway_v6: '2a03:8600:1001:1080::1'
 wg_exit_dns: '193.180.164.2, 2a03:8600:1001::2'
 wg_exit_remote_publickey: 'T28Qn5VFzT4wiwEPd7DscwcP3Rsmq23QcnjH1N5G/wc='
