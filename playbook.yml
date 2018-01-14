@@ -1,5 +1,5 @@
 ---
-- hosts: all:!node2
+- hosts: all:!UCI-Nodes
   become: True
   roles:
     - role: debops.apt_preferences
@@ -33,7 +33,7 @@
   become: True
   roles:
     - wireguard-concentrator
-- hosts: Nodes:!node2
+- hosts: Nodes:!UCI-Nodes
   become: True
   roles:
     - vrf
@@ -53,7 +53,7 @@
   roles:
     - wireguard-exit
     - bind
-- hosts: node2
+- hosts: UCI-Nodes
   become: True
   roles:
     - wireguard

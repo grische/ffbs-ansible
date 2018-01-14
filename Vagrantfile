@@ -20,7 +20,8 @@ Vagrant.configure("2") do |config|
             "Concentrators" => ["concentrator1", "concentrator2", "concentrator3"],
             "Clients" => ["client"],
             "Exits" => ["exit1"],
-            "Nodes" => ["node1", "node2"],
+            "Nodes" => ["node1", "node2", "node3"],
+            "UCI-Nodes" => ["node2", "node3"],
         }
         #ansible.tags = "devel"
     end
@@ -62,6 +63,15 @@ Vagrant.configure("2") do |config|
     config.vm.define "node2" do |node|
         node.vm.box = "jluebbe/ffbs-lede"
         node.vm.box_version = "17.01.4.1"
+        node.vm.network :private_network,
+            :libvirt__network_name => "mesh"
+        node.vm.network :private_network,
+            :libvirt__network_name => "access"
+    end
+
+    config.vm.define "node3" do |node|
+        node.vm.box = "jluebbe/ffbs-openwrt-snapshot"
+        node.vm.box_version = "20180114.0.0"
         node.vm.network :private_network,
             :libvirt__network_name => "mesh"
         node.vm.network :private_network,
