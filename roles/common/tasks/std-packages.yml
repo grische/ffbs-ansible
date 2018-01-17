@@ -27,6 +27,7 @@
     - mtr
     - strace
     - needrestart
+    - signify-openbsd
 - name: Remove useless packages
   become: true
   apt: name={{ item }} state=absent purge=yes

@@ -5,3 +5,7 @@
     - batctl
     - bridge-utils
 
+- name: Copy nodeconfig certificate
+  copy:
+    src:  "node-config-pub.key"
+    dest: "/etc/ffbs/"
