@@ -99,11 +99,9 @@ Vagrant.configure("2") do |config|
             :autostart => true
     end
 
-    config.vm.provider "virtualbox" do |vb|
-        vb.memory = "1024"
-    end
     config.vm.provider "libvirt" do |libvirt|
         libvirt.cpus = 2
+        libvirt.memory = 512
     end
 end
 
