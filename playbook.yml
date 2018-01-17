@@ -56,5 +56,6 @@
 - hosts: UCI-Nodes
   become: True
   roles:
+    - vrf-uci
     - wireguard
     - wireguard-node-uci
