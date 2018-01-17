@@ -45,7 +45,10 @@ Vagrant.configure("2") do |config|
     config.vm.define "client" do |client|
         client.vm.hostname = "client"
         client.vm.network :private_network,
-            :libvirt__network_name => "access"
+            :libvirt__network_name => "access",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
     end
 
     config.vm.define "exit1" do |exit|
@@ -55,27 +58,45 @@ Vagrant.configure("2") do |config|
     config.vm.define "node1" do |node|
         node.vm.hostname = "node1"
         node.vm.network :private_network,
-            :libvirt__network_name => "mesh"
+            :libvirt__network_name => "mesh",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access"
+            :libvirt__network_name => "access",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
     end
 
     config.vm.define "node2" do |node|
         node.vm.box = "jluebbe/ffbs-lede"
         node.vm.box_version = "17.01.4.1"
         node.vm.network :private_network,
-            :libvirt__network_name => "mesh"
+            :libvirt__network_name => "mesh",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access"
+            :libvirt__network_name => "access",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
     end
 
     config.vm.define "node3" do |node|
         node.vm.box = "jluebbe/ffbs-openwrt-snapshot"
         node.vm.box_version = "20180114.0.0"
         node.vm.network :private_network,
-            :libvirt__network_name => "mesh"
+            :libvirt__network_name => "mesh",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access"
+            :libvirt__network_name => "access",
+            :libvirt__forward_mode => "veryisolated",
+            :libvirt__dhcp_enabled => false,
+            :autostart => true
     end
 
     config.vm.provider "virtualbox" do |vb|
