@@ -61,3 +61,4 @@
     - vrf-uci
     - wireguard
     - wireguard-node-uci
+    - batman-uci
