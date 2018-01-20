@@ -1,0 +1,4 @@
+---
+- name: Activate bat0 interface
+  become: true
+  command: ifup bat0

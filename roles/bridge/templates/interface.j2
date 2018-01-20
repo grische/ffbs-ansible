@@ -1,0 +1,7 @@
+auto br0
+iface br0 inet manual
+	up ip link add dev br0 type bridge
+	up ip link set br0 vrf freifunk
+	up ip link set eth2 master br0
+	up ip link set br0 up
+	down ip link del br0

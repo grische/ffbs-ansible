@@ -33,13 +33,6 @@
   become: True
   roles:
     - wireguard-concentrator
-- hosts: Nodes:!UCI-Nodes
-  become: True
-  roles:
-    - vrf
-    - python-venv
-    - node
-    - wireguard-node
 - hosts:
   - client
   - concentrator1
@@ -53,6 +46,15 @@
   roles:
     - wireguard-exit
     - bind
+- hosts: Nodes:!UCI-Nodes
+  become: True
+  roles:
+    - vrf
+    - python-venv
+    - node
+    - wireguard-node
+    - bridge
+    - batman
 - hosts: UCI-Nodes
   become: True
   roles:
