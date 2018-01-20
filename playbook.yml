@@ -62,3 +62,4 @@
     - wireguard
     - wireguard-node-uci
     - batman-uci
+    - bridge-uci
