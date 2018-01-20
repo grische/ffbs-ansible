@@ -45,7 +45,8 @@ Vagrant.configure("2") do |config|
     config.vm.define "client" do |client|
         client.vm.hostname = "client"
         client.vm.network :private_network,
-            :libvirt__network_name => "access",
+            :libvirt__network_name => "access1",
+            :libvirt__iface_name => "client-access",
             :libvirt__forward_mode => "veryisolated",
             :libvirt__dhcp_enabled => false,
             :autostart => true
@@ -63,7 +64,8 @@ Vagrant.configure("2") do |config|
             :libvirt__dhcp_enabled => false,
             :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access",
+            :libvirt__network_name => "access1",
+            :libvirt__iface_name => "node1-access",
             :libvirt__forward_mode => "veryisolated",
             :libvirt__dhcp_enabled => false,
             :autostart => true
@@ -78,7 +80,8 @@ Vagrant.configure("2") do |config|
             :libvirt__dhcp_enabled => false,
             :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access",
+            :libvirt__network_name => "access2",
+            :libvirt__iface_name => "node2-access",
             :libvirt__forward_mode => "veryisolated",
             :libvirt__dhcp_enabled => false,
             :autostart => true
@@ -93,7 +96,8 @@ Vagrant.configure("2") do |config|
             :libvirt__dhcp_enabled => false,
             :autostart => true
         node.vm.network :private_network,
-            :libvirt__network_name => "access",
+            :libvirt__network_name => "access3",
+            :libvirt__iface_name => "node3-access",
             :libvirt__forward_mode => "veryisolated",
             :libvirt__dhcp_enabled => false,
             :autostart => true
