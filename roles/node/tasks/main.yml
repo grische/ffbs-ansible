@@ -9,3 +9,13 @@
   copy:
     src:  "node-config-pub.key"
     dest: "/etc/ffbs/"
+
+- name: Configure dnsmasq
+  template:
+    src: "node.conf.j2"
+    dest: "/etc/dnsmasq.d/node.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+    - Restart dnsmasq
