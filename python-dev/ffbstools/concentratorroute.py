@@ -92,8 +92,9 @@ def update():
         set_wg_route(link_id, dst, 'delete')
 
 def main():
-    update()
-    time.sleep(10)
+    while True:
+        update()
+        time.sleep(10)
 
 if __name__  == "__main__":
     main()
