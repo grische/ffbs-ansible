@@ -4,14 +4,22 @@ import json
 import re
 import time
 
-from aioetcd3.client import client
+from subprocess import check_output
+
+from aioetcd3.client import Client
 from aioetcd3.help import range_prefix
 
 from aiohttp import web
 
 EXPIRE_TIME=60
 
-etcd_client = client(endpoint="127.0.0.1:2379")
+ca = open('/etc/ssl/etcd/etcd-ca.pem', 'rb')
+client = open('/etc/ssl/etcd/etcd-client.cert.pem', 'rb')
+key = open('/etc/ssl/etcd/etcd-client.key.pem', 'rb')
+
+own_ip = re.search('inet ([0-9.]+) peer [^\n]+ wg-c',check_output(['ip','a']).decode()).group(1)
+etcd_client = Client(endpoint="{}:2379".format(own_ip), ssl=True, cert_cert=client.read(), ca_cert=ca.read(), cert_key=key.read())
+
 sig_cache = dict()
 
 def conv_val(raw):
@@ -81,6 +89,7 @@ async def cleanup():
         await asyncio.sleep(EXPIRE_TIME)
 
 def main():
+    print('connecting to {}'.format(own_ip))
     app = web.Application()
     app.router.add_get('/config', web_config)
     app.router.add_get('/config.sig', web_config_sig)
