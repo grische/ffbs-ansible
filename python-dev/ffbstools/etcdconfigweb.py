@@ -6,19 +6,14 @@ import time
 
 from subprocess import check_output
 
-from aioetcd3.client import Client
 from aioetcd3.help import range_prefix
 
 from aiohttp import web
 
+from .etcd import etcd_client
+
+
 EXPIRE_TIME=60
-
-ca = open('/etc/ssl/etcd/etcd-ca.pem', 'rb')
-client = open('/etc/ssl/etcd/etcd-client.cert.pem', 'rb')
-key = open('/etc/ssl/etcd/etcd-client.key.pem', 'rb')
-
-own_ip = re.search('inet ([0-9.]+) peer [^\n]+ wg-c',check_output(['ip','a']).decode()).group(1)
-etcd_client = Client(endpoint="{}:2379".format(own_ip), ssl=True, cert_cert=client.read(), ca_cert=ca.read(), cert_key=key.read())
 
 sig_cache = dict()
 

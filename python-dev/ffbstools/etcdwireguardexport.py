@@ -4,11 +4,8 @@ import traceback
 from socket import gethostname
 import json
 
-from aioetcd3.client import client
-
+from .etcd import etcd_client
 from .wireguard import get_dict
-
-etcd_client = client(endpoint="127.0.0.1:2379")
 
 
 async def update(lease):

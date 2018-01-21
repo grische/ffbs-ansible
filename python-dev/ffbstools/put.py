@@ -1,13 +1,13 @@
 import asyncio
 
-from aioetcd3.client import client
 from aioetcd3.help import range_all
 from aioetcd3.kv import KV
 from aioetcd3 import transaction
 
-etcd_client = client(endpoint="127.0.0.1:2379")
-
 import json
+
+from .etcd import etcd_client
+
 
 async def put():
     await etcd_client.put('/foo', 'foo')
