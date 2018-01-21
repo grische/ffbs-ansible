@@ -84,7 +84,6 @@ async def cleanup():
         await asyncio.sleep(EXPIRE_TIME)
 
 def main():
-    print('connecting to {}'.format(own_ip))
     app = web.Application()
     app.router.add_get('/config', web_config)
     app.router.add_get('/config.sig', web_config_sig)
