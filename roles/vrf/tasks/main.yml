@@ -17,8 +17,8 @@
     - { name: 'net.ipv6.conf.all.keep_addr_on_down', value: '1' }
     # we want etcd and ssh to be accessible from all VRFs
     - { name: 'net.ipv4.tcp_l3mdev_accept', value: '1' }
-    # we don't need udp ports accessible from all VRFs
-    - { name: 'net.ipv4.udp_l3mdev_accept', value: '0' }
+    # we want dhcp and dns to be accessible from all VRFs
+    - { name: 'net.ipv4.udp_l3mdev_accept', value: '1' }
 - name: Configure vrf
   template:
     src: "interface.j2"
