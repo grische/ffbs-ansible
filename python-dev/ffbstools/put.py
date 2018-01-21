@@ -24,9 +24,9 @@ async def put():
     
     #await etcd_client.put('/foo1', 'foo', lease=lease)
     
-async def main():
-    await put()
+def main():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(put())
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    main()
