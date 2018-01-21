@@ -58,5 +58,6 @@
         "CACERT": "/etc/ssl/etcd/etcd-ca.pem",
         "CERT": "/etc/ssl/etcd/etcd-client.cert.pem",
         "KEY": "/etc/ssl/etcd/etcd-client.key.pem",
+        "ENDPOINT": "{{etcd_endpoint}}",
         "ENDPOINTS": "{{etcd_endpoints}}"
       }

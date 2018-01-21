@@ -1,2 +1,3 @@
 ---
 etcd_endpoints: "{% for host in groups['etcd_cluster'] %}https://{{hostvars[host]['etcd_peer_ip']}}:2379{% if not loop.last %},{% endif %}{% endfor %}"
+etcd_endpoint: "{{ groups['etcd_cluster']|map('extract', hostvars, 'etcd_peer_ip')|shuffle(seed=inventory_hostname)|first }}:2379"
