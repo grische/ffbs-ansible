@@ -61,3 +61,5 @@
         "ENDPOINT": "{{etcd_endpoint}}",
         "ENDPOINTS": "{{etcd_endpoints}}"
       }
+- name: Initialize etcd cluster data
+  script: etcd-init.sh

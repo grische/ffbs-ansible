@@ -1,4 +1,5 @@
 #!/bin/bash
+source /etc/profile.d/etcd.sh
 PUT="etcdctl put"
 GET="etcdctl get"
 
@@ -13,7 +14,7 @@ fi
 $PUT '/config/default/retry' 20
 $PUT '/config/default/wg_keepalive' 25
 $PUT '/config/default/mtu' 1420
-$PUT '/config/default/concentrators' '[{"address4": "172.16.0.1", "address6": "2001:bf7:380:1::1", "endpoint": "c1.net.freifunk-bs.de", "pubkey": "LfwcsPGyih7XpzUHCEaCpoJWP0JzYOFv9ElfItlgAiM="}, {"address4": "172.16.0.2", "address6": "2001:bf7:380:1::2", "endpoint": "c2.net.freifunk-bs.de", "pubkey": "whT6vlbUGSBKzKJGlxhevJf/PU/Jvdi9P6oSzAZ0i0E="}, {"address4": "172.16.0.3", "address6": "2001:bf7:380:1::3", "endpoint": "c3.net.freifunk-bs.de", "pubkey": "Xzzv10CknsICmteoJCGwHkERtVhS6xkT6LzPCrDxURM="}]'
+$PUT '/config/default/concentrators' '[{"address4": "172.16.0.1", "address6": "2001:bf7:380:1::1", "endpoint": "concentrator1", "pubkey": "LfwcsPGyih7XpzUHCEaCpoJWP0JzYOFv9ElfItlgAiM=", "ifname": "wg-c1"}, {"address4": "172.16.0.2", "address6": "2001:bf7:380:1::2", "endpoint": "concentrator2", "pubkey": "whT6vlbUGSBKzKJGlxhevJf/PU/Jvdi9P6oSzAZ0i0E=", "ifname": "wg-c2"}, {"address4": "172.16.0.3", "address6": "2001:bf7:380:1::3", "endpoint": "concentrator3", "pubkey": "Xzzv10CknsICmteoJCGwHkERtVhS6xkT6LzPCrDxURM=", "ifname": "wg-c3"}]'
 
 # insert test client (num 0x3fff)
 $PUT '/config/test/retry' 600
