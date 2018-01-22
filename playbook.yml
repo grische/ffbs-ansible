@@ -32,6 +32,7 @@
 - hosts: Concentrators
   become: True
   roles:
+    - nginx
     - wireguard-concentrator
 - hosts:
   - client

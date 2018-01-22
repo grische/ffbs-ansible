@@ -28,3 +28,10 @@
     name: concentrator-route.service
     state: started
     enabled: yes
+
+- name: Install nginx concentrator config
+  template:
+    src: concentrator.conf.j2
+    dest: /etc/nginx/sites-enabled/concentrator
+  notify:
+    - Reload nginx
