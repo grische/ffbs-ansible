@@ -10,3 +10,4 @@
 /etcd-ca/output
 
 __pycache__/
+*.swp
