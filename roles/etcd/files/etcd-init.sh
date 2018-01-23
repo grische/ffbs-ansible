@@ -24,5 +24,7 @@ $PUT '/config/test/range4' '10.255.252.0/22'
 $PUT '/config/test/address6' '2001:bf7:381:3fff::1'
 $PUT '/config/test/range6' '2001:bf7:381:3fff::/64'
 
+
+$PUT 'next_free_id' 1
 $PUT 'initialized' "$(date)"
 
