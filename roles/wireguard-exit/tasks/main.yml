@@ -1,3 +1,9 @@
+- name: Load user specific vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files: "{{ lookup('env','USER') }}-{{ inventory_hostname }}.yml"
+      skip: true
+
 - name: Create wireguard configuration
   template:
     src: 'wireguard.j2'
