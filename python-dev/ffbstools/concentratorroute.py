@@ -20,7 +20,7 @@ def get_wg_active_nets():
         for peer in data['peers'].values():
             if (now - peer['latest_handshake']) > WG_TIMEOUT:
                 continue
-            for ip in peer['allowed-ips']:
+            for ip in peer['allowed_ips']:
                 if ip.startswith("10."):
                     result.append(ip)
     result.sort()

@@ -6,6 +6,7 @@
   with_items:
     - { src: 'etcd-config-web.service', dest: '/etc/systemd/system/', mode: 644 }
     - { src: 'concentrator-route.service', dest: '/etc/systemd/system/', mode: 644 }
+    - { src: 'concentrator-config.service', dest: '/etc/systemd/system/', mode: 644 }
 
 - name: Copy nodeconfig certificates
   copy:
@@ -15,19 +16,16 @@
     - 'node-config-priv.key'
     - 'node-config-pub.key'
 
-- name: Enable and start etcd-config-web.service
+- name: Enable and start systemd service
   systemd:
     daemon_reload: yes
-    name: etcd-config-web.service
+    name: "{{ item }}"
     state: started
     enabled: yes
-
-- name: Enable and start concentrator-route.service
-  systemd:
-    daemon_reload: yes
-    name: concentrator-route.service
-    state: started
-    enabled: yes
+  with_items:
+    - etcd-config-web.service
+    - concentrator-route.service
+    - concentrator-config.service
 
 - name: Install nginx concentrator config
   template:

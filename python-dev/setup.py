@@ -12,7 +12,8 @@ setup(name='ffbstools',
       install_requires=[
           'aioetcd3',
           'aiohttp',
-          'pyroute2'
+          'pyroute2',
+          'requests',
       ],
       entry_points={
           'console_scripts': [
@@ -20,8 +21,11 @@ setup(name='ffbstools',
               'ffbs-etcd-put = ffbstools.put:main',
               'ffbs-etcd-config-web = ffbstools.etcdconfigweb:main',
               'ffbs-etcd-wireguard-export = ffbstools.etcdwireguardexport:main',
+              'ffbs-concentrator-config = ffbstools.concentratorconfig:main',
               'ffbs-concentrator-route = ffbstools.concentratorroute:main',
+              'ffbs-node-config = ffbstools.nodeconfig:main',
               'ffbs-node-route = ffbstools.noderoute:main',
+              'ffbs-wireguard = ffbstools.wireguard:main',
           ]
       },
 )
