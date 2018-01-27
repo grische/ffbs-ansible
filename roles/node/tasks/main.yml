@@ -1,3 +1,12 @@
+- name: Create node wireguard key file
+  copy:
+    dest: "/etc/ffbs-wg.json"
+    content: |
+      {
+        "pubkey": "{{wg_public_key}}",
+        "privkey": "{{wg_private_key}}"
+      }
+
 - name: Install node packages
   apt: name={{ item }} state=present
   with_items:
