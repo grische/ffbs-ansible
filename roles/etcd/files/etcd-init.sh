@@ -3,6 +3,12 @@ source /etc/profile.d/etcd.sh
 PUT="etcdctl put"
 GET="etcdctl get"
 
+etcdctl endpoint health
+if [[ $? -gt 0 ]]; then
+    echo "cluster unhealthy, skipping"
+    exit 0
+fi
+
 # do not overwrite these values
 initialized=$($GET initialized)
 if [[ -n "$initialized" ]]; then
