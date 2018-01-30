@@ -107,7 +107,7 @@ Vagrant.configure("2") do |config|
         libvirt.cpus = 2
         libvirt.memory = 512
         libvirt.random :model => 'random'
-        libvirt.disk_bus = 'scsi' # support fstrim
+        libvirt.disk_bus = 'sata' # support fstrim
     end
 end
 
