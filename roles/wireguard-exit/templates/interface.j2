@@ -7,6 +7,7 @@ iface {{ ifname }} inet static
 	up ip -6 r replace default via {{ wg_exit_gateway_v6 }} vrf freifunk proto freifunk
 	down ip -6 a del {{ wg_exit_address_v6 }} dev {{ ifname }}
 	down ip -6 r del default via {{ wg_exit_gateway_v6 }} vrf freifunk proto freifunk
+	pre-up iptables -t nat -F POSTROUTING # FIXME use a real firewall service
 	pre-up iptables -t nat -A POSTROUTING -o wg-azire -j SNAT --to {{ wg_exit_address_v4.split('/')[0] }}
 	pre-up ip link add {{ ifname }} type wireguard
 	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
