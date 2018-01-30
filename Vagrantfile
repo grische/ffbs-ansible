@@ -89,7 +89,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "node3" do |node|
         node.vm.box = "jluebbe/ffbs-openwrt-snapshot"
-        node.vm.box_version = "20180114.0.0"
+        node.vm.box_version = "20180130.0.0"
         node.vm.network :private_network,
             :libvirt__network_name => "mesh",
             :libvirt__forward_mode => "veryisolated",
