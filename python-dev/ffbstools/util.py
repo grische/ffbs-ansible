@@ -9,7 +9,7 @@ def addresses_from_number(num):
         return str(ipaddress.IPv4Address(n))
     def as_v6(n):
         return str(ipaddress.IPv6Address(n))
-    address4 = as_v4(0xac110000 | num)
+    address4 = as_v4(0x0a000000 | (num << range_size) + 1)
     range4 = as_v4(0x0a000000 | (num << range_size))+'/'+str(32-range_size)
     address6 = as_v6(v6base | (num << 64) + 1)
     range6 = as_v6(v6base | (num << 64))+'/64'
