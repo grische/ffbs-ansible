@@ -6,7 +6,7 @@
     - { file: 'wg-privkey', content: '{{ wg_private_key }}' }
     - { file: 'wg-pubkey', content: '{{ wg_public_key }}' }
 
-- name: Install nodeconfig
+- name: Install nodeconfig service
   copy:
     src:  "{{ item.name }}"
     dest: "{{ item.dest }}"
@@ -16,3 +16,5 @@
     - { name: 'nodeconfig.sh', dest: '/usr/sbin/nodeconfig.sh', mode: '0755'  }
     - { name: 'nodeconfig.lua', dest: '/usr/share/lua/nodeconfig.lua', mode: '0555' }
 
+- name: Enable and start nodeconfig service
+  shell: /etc/init.d/nodeconfig enable|| true; /etc/init.d/nodeconfig start
