@@ -12,8 +12,13 @@ from aioetcd3 import transaction
 
 from aiohttp import web
 
-from .etcd import etcd_client
-from . import util
+try:
+    from .etcd import etcd_client
+    from . import util
+except ModuleNotFoundError:
+    # running directly from CLI?
+    from etcd import etcd_client
+    import util
 
 
 EXPIRE_TIME=60
@@ -66,7 +71,7 @@ async def config_for(pubkey_hex, no_retry=False):
 
 async def web_config(request):
     if 'pubkey' in request.query and 'nonce' in request.query:
-        pubkey = request.query.get('pubkey')
+        pubkey = request.query.get('pubkey').replace(' ','+')
         pubkey_hex = util.pubkey_to_key(pubkey.encode()).decode()
         nonce = request.query.get('nonce')
         if pubkey_hex and nonce:
@@ -83,7 +88,7 @@ async def web_config(request):
 
 async def web_config_sig(request):
     if 'pubkey' in request.query and 'nonce' in request.query:
-        pubkey = request.query.get('pubkey')
+        pubkey = request.query.get('pubkey').replace(' ','+')
         pubkey_hex = util.pubkey_to_key(pubkey.encode()).decode()
         nonce = request.query.get('nonce')
         if pubkey_hex and nonce:
