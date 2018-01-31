@@ -72,6 +72,7 @@ def apply_config(conf, privkey):
     new_ifs = set(concentrators_by_ifname)
     print(old_ifs, new_ifs)
     for ifname in sorted(new_ifs - old_ifs):
+        concentrator = concentrators_by_ifname[ifname]
         subprocess.check_call("ip link add {} type wireguard".format(ifname).split())
         subprocess.check_call("ip addr add {}/32 peer {} dev {}".format(
             conf['address4'], concentrator['address4'], ifname,
