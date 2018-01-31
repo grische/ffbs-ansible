@@ -1,31 +1,18 @@
-- name: Create wireguard configuration
-  shell: |
-    {% set peer = hostvars[item] %}
-    {% set ifname = peer.wg_peer_ifname.replace('-', '_') %}
+- name: Copy wireguard keys
+  copy:
+    dest: "/etc/ffbs/{{ item.file }}"
+    content: "{{ item.content }}"
+  with_items:
+    - { file: 'wg-privkey', content: '{{ wg_private_key }}' }
+    - { file: 'wg-pubkey', content: '{{ wg_public_key }}' }
 
-    if ! uci -q show network.{{ ifname }} > /dev/null; then
-      uci set network.{{ ifname }}=interface
-    fi
-    uci set network.{{ ifname }}.proto=wireguard
-    uci set network.{{ ifname }}.private_key={{ wg_private_key }}
-    uci set network.{{ ifname }}.listen_port={{ peer.wg_peer_port }}
+- name: Install nodeconfig
+  copy:
+    src:  "{{ item.name }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { name: 'nodeconfig.init', dest: '/etc/init.d/nodeconfig', mode: '0755' }
+    - { name: 'nodeconfig.sh', dest: '/usr/sbin/nodeconfig.sh', mode: '0755'  }
+    - { name: 'nodeconfig.lua', dest: '/usr/share/lua/nodeconfig.lua', mode: '0555' }
 
-    if ! uci -q show network.@wireguard_{{ ifname }}[0] > /dev/null; then
-      uci add network wireguard_{{ ifname }}
-    fi
-    uci set network.@wireguard_{{ ifname }}[0].public_key={{ peer.wg_public_key }}
-    uci set network.@wireguard_{{ ifname }}[0].endpoint_host={{ peer.ansible_host }}
-    uci set network.@wireguard_{{ ifname }}[0].endpoint_port=2300
-    uci set network.@wireguard_{{ ifname }}[0].persistent_keepalive=15
-    uci del network.@wireguard_{{ ifname }}[0].allowed_ips
-    uci add_list network.@wireguard_{{ ifname }}[0].allowed_ips=0.0.0.0/0
-
-    uci changes | grep -v allowed_ips
-
-    uci commit
-  register: uci_wireguard
-  changed_when: "uci_wireguard.stdout"
-  with_items: '{{ groups.Concentrators }}'
-- name: Restart network
-  when: uci_wireguard.changed
-  command: "/etc/init.d/network restart"
