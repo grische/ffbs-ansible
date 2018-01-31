@@ -1,0 +1,10 @@
+[Unit]
+Description=Configure wireguard peers for nodes
+
+[Service]
+Type=simple
+ExecStart=/srv/venv/bin/ffbs-concentrator-config
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
