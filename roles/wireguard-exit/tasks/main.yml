@@ -15,3 +15,10 @@
     dest: '/etc/network/interfaces.d/{{ wg_exit_ifname }}'
   notify:
   - Activate exit interface
+
+- name: Configure SNAT
+  template:
+    src: 'iptables.j2'
+    dest: '/etc/iptables.rules'
+  notify:
+  - Reconfigure firewall
