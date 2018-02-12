@@ -35,6 +35,7 @@
     - nginx
     - wireguard-concentrator
     - bind
+    - chrony
 - hosts:
   - client
   - concentrator1
