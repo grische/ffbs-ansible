@@ -34,6 +34,7 @@
   roles:
     - nginx
     - wireguard-concentrator
+    - bind
 - hosts:
   - client
   - concentrator1
@@ -46,7 +47,6 @@
   become: True
   roles:
     - wireguard-exit
-    - bind
 - hosts: Nodes:!UCI-Nodes
   become: True
   roles:

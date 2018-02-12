@@ -22,6 +22,10 @@ protocol kernel {
 #	export all;	# Actually insert routes into the kernel routing table
 }
 
+protocol direct {
+	interface "freifunk"; # used for anycast addresses
+}
+
 protocol ospf {
 	area 0 {
 		interface "wg-c*";

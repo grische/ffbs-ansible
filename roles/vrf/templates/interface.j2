@@ -4,8 +4,9 @@ iface freifunk inet manual
 	up ip route add table freifunk unreachable default metric 1024
 	up ip -6 route add table freifunk unreachable default metric 1024
 	up ip link set dev freifunk up
+	{% if 'wg_backbone_id' in vars %}up ip addr add 172.16.1.{{ wg_backbone_id }} dev freifunk{% endif %}
 	# allow transparent access to the backbone for etcd
-	up ip route add 172.16.1.0/24 dev freifunk
+	up ip route add 172.16.0.0/12 dev freifunk
 	# allow transparent access to the client network
 	up ip route add 10.0.0.0/8 dev freifunk
 	down ip del link freifunk
