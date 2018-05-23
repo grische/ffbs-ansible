@@ -4,6 +4,12 @@
 #  with_items:
 #  - linux-image-{{ apt__architecture }}
 #  - linux-headers-{{ apt__architecture }}
+- name: Install dkms packages
+  become: true
+  apt: name={{ item }} state=latest default_release=stretch-backports
+  with_items:
+    - linux-headers-amd64
+    - dkms
 - name: Install wireguard packages
   become: true
   apt: name={{ item }} state=latest default_release=unstable
