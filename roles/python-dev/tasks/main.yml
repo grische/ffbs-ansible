@@ -1,8 +1,9 @@
 - name: Install python development packages
-  apt: name={{ item }} state=present default_release=testing
+  apt: name={{ item }} state=latest default_release=testing
   with_items:
     - python3.6
     - python3.6-venv
+    - python3-pip
 - name: Synchronize python-dev
   become: false
   synchronize:

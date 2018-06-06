@@ -1,6 +1,6 @@
 - name: Install base packages
   become: true
-  apt: name={{ item }} state=present
+  apt: name={{ item }} update_cache=yes state=present
   with_items:
     - etckeeper
 - name: Install standard packages
