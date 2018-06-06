@@ -1,4 +1,0 @@
----
-- name: Activate freifunk vrf interface
-  become: true
-  command: ifup freifunk

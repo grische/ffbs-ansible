@@ -9,5 +9,6 @@ iface freifunk inet manual
 	up ip route add 172.16.0.0/12 dev freifunk
 	# allow transparent access to the client network
 	up ip route add 10.0.0.0/8 dev freifunk
-	down ip del link freifunk
+	down ip link del freifunk
 	down ip route flush table freifunk
+	down ip -6 route flush table freifunk

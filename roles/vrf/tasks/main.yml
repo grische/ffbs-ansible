@@ -26,5 +26,5 @@
     owner: "root"
     group: "root"
     mode: "0644"
-  notify:
-  - Activate freifunk vrf interface
+- name: Activate freifunk vrf interface
+  command: ifup freifunk
