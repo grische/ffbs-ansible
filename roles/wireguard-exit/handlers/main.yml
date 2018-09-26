@@ -3,5 +3,5 @@
   become: true
   command: ifup {{ wg_exit_ifname }} -v
 
-- name: Reconfigure firewall
-  shell: iptables-restore < /etc/iptables.rules
+- name: Reload firewall
+  shell: netfilter-persistent reload
