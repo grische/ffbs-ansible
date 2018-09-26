@@ -7,5 +7,6 @@ iface {{ ifname }} inet static
 	pre-up ip link add {{ ifname }} type wireguard
 	pre-up ip link set {{ ifname }} vrf freifunk
 	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
-	pre-up ip addr add fe80::{{ wg_backbone_id }} peer fe80::{{ peer.wg_backbone_id }} dev {{ ifname }}
+	# this needs to be in post-up, as otherwise the route to the peer is missing from the vrf
+	post-up ip addr add fe80::{{ wg_backbone_id }} peer fe80::{{ peer.wg_backbone_id }} nodad dev {{ ifname }}
 	post-down ip link del {{ ifname }}

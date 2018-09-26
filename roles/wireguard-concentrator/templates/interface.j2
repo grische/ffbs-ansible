@@ -4,5 +4,6 @@ iface {{ ifname }} inet static
 	address {{ wg_gateway_v4 }}/32
 	pre-up ip link add {{ ifname }} type wireguard
 	pre-up ip link set {{ ifname }} vrf freifunk
+	pre-up ip addr add {{ wg_gateway_v6 }}/128 dev {{ ifname }}
 	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
 	post-down ip link del {{ ifname }}

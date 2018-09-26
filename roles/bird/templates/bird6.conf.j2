@@ -16,10 +16,15 @@ protocol device {
 # with other routers in the network, it performs synchronization of BIRD's
 # routing tables with the OS kernel.
 protocol kernel {
+	learn;
+	kernel table 10;
 	metric 64;	# Use explicit kernel route metric to avoid collisions
 			# with non-BIRD routes in the kernel routing table
-	import none;
-#	export all;	# Actually insert routes into the kernel routing table
+
+	# Import only routes added by our helper daemons
+	import where (krt_source = 23);
+
+	export all;	# Actually insert routes into the kernel routing table
 }
 
 protocol direct {
@@ -30,4 +35,6 @@ protocol ospf {
 	area 0 {
 		interface "wg-c*", "wg-e*";
 	};
+	import all;
+	export all;
 }
