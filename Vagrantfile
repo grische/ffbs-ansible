@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     #config.vm.box = "debian/stretch64"
     # use box with VRF support (kernel and iproute2)
     config.vm.box = "jluebbe/ffbs-base"
-    config.vm.box_version = "20180523.0.0"
+    config.vm.box_version = "20180905.0.0"
     #config.vm.network "public_network"
 
     config.vm.synced_folder ".", "/vagrant", type: "rsync",
