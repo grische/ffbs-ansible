@@ -77,6 +77,7 @@ async def web_config(request):
         if pubkey_hex and nonce:
             raw = await config_for(pubkey_hex)
             raw['nonce'] = nonce
+            raw['time'] = int(time.time())
             conf = json.dumps(raw)
             sig = await get_signature(conf)
             sig_cache[(pubkey_hex,nonce)] = (sig, time.time())
