@@ -42,6 +42,7 @@
     - nginx
     - wireguard-concentrator
     - bind
+    - bind-reverse
     - chrony
 - hosts:
   - client

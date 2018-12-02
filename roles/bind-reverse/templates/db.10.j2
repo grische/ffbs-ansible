@@ -1,0 +1,14 @@
+; {{ ansible_managed }}
+$TTL    7200
+@       IN      SOA     localhost. root.localhost. (
+                              1         ; Serial
+                          86400         ; Refresh
+                           7200         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@	IN	NS	localhost.
+1.0.0   IN      PTR     c1.vpn.ffbs.
+2.0.0   IN      PTR     c2.vpn.ffbs.
+3.0.0   IN      PTR     c3.vpn.ffbs.
+
