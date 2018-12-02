@@ -4,8 +4,12 @@
   apt: name={{item}} state=present update_cache=yes
   with_items:
     - nginx
-- name: Remove nginx default config
+- name: Create nginx default snippet directory
   become: true
   file:
-    path: "/etc/nginx/sites-enabled/default"
-    state: absent
+    path: "/etc/nginx/site-default.d"
+    state: directory
+- name: Create nginx default config
+  template:
+    src: "default.j2"
+    dest: "/etc/nginx/sites-available/default"
