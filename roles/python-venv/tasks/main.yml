@@ -1,11 +1,11 @@
 - name: Install python development packages
   apt: name={{ item }} state=latest default_release=testing
   with_items:
-    - python3.6
-    - python3.6-venv
+    - python3.7
+    - python3.7-venv
     - python3-pip
 - name: Create /srv/venv
-  shell: "python3.6 -m venv /srv/venv"
+  shell: "python3.7 -m venv /srv/venv"
   args:
     creates: "/srv/venv"
 - name: Synchronize python-dev
