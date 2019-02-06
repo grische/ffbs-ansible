@@ -40,3 +40,57 @@ protocol ospf {
 	import all;
 	export all;
 }
+
+protocol static unreachable_default {
+        preference 0;
+        route 0.0.0.0/0 reject;
+}
+{% if ffrl_peers is defined %}
+
+define FFRL_IP = {{ ffrl_local.v4 }};
+define FFRL_NET = {{ ffrl_local.v4 }}/32;
+
+protocol static unreachable_ffrl {
+        preference 0;
+        route {{ ffrl_local.v4 }}/32 reject;
+}
+
+function is_default() {
+	return (net = 0.0.0.0/0);
+};
+
+table ffrl;
+
+protocol pipe pipe_ffrl {
+        peer table ffrl;
+        # Import only the default route
+        import filter {
+                if is_default() then {
+                        # Use FFRL_IP as source (for NAT)
+                        krt_prefsrc = FFRL_IP;
+                        accept;
+                }
+                reject;
+        };
+        # Export only our public IP address
+        export where (net = FFRL_NET);
+}
+
+template bgp bgp_ffrl {
+        table ffrl;
+        local as 65380;
+        import where is_default();
+        # Export only our public IP address
+        export where (net = FFRL_NET);
+}
+{% for peer in ffrl_peers %}
+
+protocol bgp ffrl_{{ peer.name | replace("-", "_") }} from bgp_ffrl {
+	description "FFRL {{ peer.name }}";
+        neighbor {{ peer.v4 | ipaddr('address') }} as 201701;
+{% if "pref" in peer %}
+        default bgp_local_pref {{ peer.pref }};
+{% endif %}
+};
+{% endfor %}
+{% endif %}
