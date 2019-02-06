@@ -1,4 +1,4 @@
-- name: Configurate chrony anycase address on the vrf
+- name: Configurate chrony anycast address on the vrf
   copy:
     src:  'vrf.conf'
     dest: '/etc/systemd/system/chrony.service.d/'

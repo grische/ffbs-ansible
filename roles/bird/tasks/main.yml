@@ -1,6 +1,6 @@
 - name: Install bird package
   apt: name=bird state=present
-- name: Configure bird
+- name: Configure bird (v4)
   template:
     src: "bird.conf.j2"
     dest: "/etc/bird/bird.conf"
@@ -9,7 +9,7 @@
     mode: "0640"
   notify:
     - Reload bird
-- name: Configure bird
+- name: Configure bird (v6)
   template:
     src: "bird6.conf.j2"
     dest: "/etc/bird/bird6.conf"
