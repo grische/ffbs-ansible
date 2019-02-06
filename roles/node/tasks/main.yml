@@ -8,11 +8,12 @@
       }
 
 - name: Install node packages
-  apt: name={{ item }} state=present
-  with_items:
-    - dnsmasq
-    - batctl
-    - bridge-utils
+  apt:
+    state: present
+    name:
+      - dnsmasq
+      - batctl
+      - bridge-utils
 
 - name: Copy nodeconfig certificate
   copy:

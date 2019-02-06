@@ -3,67 +3,68 @@
     src:  'policy-rc.d'
     dest: '/usr/sbin/'
     mode: 0755
-- name: Install base packages
+- name: Install etckeeper package
   become: true
-  apt: name={{ item }} update_cache=yes state=present
-  with_items:
-    - etckeeper
+  apt: name=etckeeper update_cache=yes state=present
 - name: Install standard packages
   become: true
-  apt: name={{ item }} state=present
-  with_items:
-    - aptitude
-    - htop
-    - locales-all
-    - mc
-    - molly-guard
-    - needrestart
-    - pinentry-curses
-    - qemu-guest-agent
-    - rng-tools
-    - screen
-    - tig
-    - tmux
-    - unattended-upgrades
-    - vim-nox
-    - jq
-    - curl
-    - tcpdump
-    - mtr
-    - strace
-    - needrestart
-    - signify-openbsd
-    - psmisc
-    - dwdiff
+  apt:
+    state: present
+    name:
+      - aptitude
+      - htop
+      - locales-all
+      - mc
+      - molly-guard
+      - needrestart
+      - pinentry-curses
+      - qemu-guest-agent
+      - rng-tools
+      - screen
+      - tig
+      - tmux
+      - unattended-upgrades
+      - vim-nox
+      - jq
+      - curl
+      - tcpdump
+      - mtr
+      - strace
+      - needrestart
+      - signify-openbsd
+      - psmisc
+      - dwdiff
 - name: Remove useless packages
   become: true
-  apt: name={{ item }} state=absent purge=yes
-  with_items:
-    - acpi
-    - acpid
-    - at
-    - debian-faq
-    - dmidecode
-    - eject
-    - ftp
-    - iamerican
-    - ibritish
-    - ispell
-    - laptop-detect
-    - libclass-isa-perl
-    - libswitch-perl
-    - m4
-    - mutt
-    - nano
-    - nfs-common
-    - os-prober
-    - pinentry-gtk2
-    - procmail
-    - rdnssd
-    - rpcbind
-    - telnet
-    - texinfo
-    - vim-tiny
-    - wamerican
-    - xauth
-    - xdg-user-dirs
+  apt:
+    state: absent
+    purge: yes
+    name:
+      - acpi
+      - acpid
+      - at
+      - debian-faq
+      - dmidecode
+      - eject
+      - ftp
+      - iamerican
+      - ibritish
+      - ispell
+      - laptop-detect
+      - libclass-isa-perl
+      - libswitch-perl
+      - m4
+      - mutt
+      - nano
+      - nfs-common
+      - os-prober
+      - pinentry-gtk2
+      - procmail
+      - rdnssd
+      - rpcbind
+      - telnet
+      - texinfo
+      - vim-tiny
+      - wamerican
+      - xauth
+      - xdg-user-dirs

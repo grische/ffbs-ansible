@@ -1,8 +1,10 @@
 - name: Install etcd packages
-  apt: name={{ item }} state=present default_release=unstable
-  with_items:
-    - etcd-client
-    - etcd-server
+  apt:
+    state: present
+    default_release: unstable
+    name:
+      - etcd-client
+      - etcd-server
   register:
     etcd_install
 - name: Copy the etcd CA

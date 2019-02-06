@@ -1,9 +1,7 @@
 ---
 - name: Install required packages
   become: true
-  apt: name={{item}} state=present update_cache=yes
-  with_items:
-    - nginx
+  apt: name=nginx state=present update_cache=yes
 - name: Create nginx default snippet directory
   become: true
   file:
