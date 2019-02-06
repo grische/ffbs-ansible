@@ -1,3 +1,5 @@
+- name: Install iproute2 with vrf support packages
+  apt: name=iproute2 state=latest default_release=stretch-backports
 - name: Configure routing protocol name
   lineinfile:
     dest: "/etc/iproute2/rt_protos"
