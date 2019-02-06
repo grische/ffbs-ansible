@@ -2,11 +2,11 @@
 {% set ifname = peer.wg_peer_ifname %}
 auto {{ ifname }}
 iface {{ ifname }} inet static
-	address 172.16.1.{{ wg_backbone_id }}
-	pointopoint 172.16.1.{{ peer.wg_backbone_id }}
+	address {{ wg_backbone_v4 }}
+	pointopoint {{ peer.wg_backbone_v4 }}
 	pre-up ip link add {{ ifname }} type wireguard
 	pre-up ip link set {{ ifname }} vrf freifunk
 	pre-up wg setconf {{ ifname }} /etc/wireguard/{{ ifname }}.conf
 	# this needs to be in post-up, as otherwise the route to the peer is missing from the vrf
-	post-up ip addr add fe80::{{ wg_backbone_id }} peer fe80::{{ peer.wg_backbone_id }} nodad dev {{ ifname }}
+	post-up ip addr add {{ wg_backbone_v6_ll }} peer {{ peer.wg_backbone_v6_ll }} nodad dev {{ ifname }}
 	post-down ip link del {{ ifname }}

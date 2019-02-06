@@ -3,6 +3,7 @@ etcd_peer_ip: '172.16.1.1'
 wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'LfwcsPGyih7XpzUHCEaCpoJWP0JzYOFv9ElfItlgAiM='
 wg_backbone_id: '1'
+wg_backbone_grp: '1'
 wg_hostname: 'concentrator1'
 wg_peer_ifname: 'wg-c1'
 wg_peer_port: 2301

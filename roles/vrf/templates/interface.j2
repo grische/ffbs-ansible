@@ -7,13 +7,21 @@ iface freifunk inet manual
 	up ip -4 route add table freifunk unreachable 172.16.0.0/12 metric 1024
 	up ip -6 route add table freifunk unreachable 2001:bf7:380::/48  metric 1024
 	up ip link set dev freifunk up
-{% if 'wg_backbone_id' in vars %}
-	up ip -4 addr add 172.16.1.{{ wg_backbone_id }} dev freifunk
-	up ip -6 addr add 2001:bf7:381::{{ wg_backbone_id }} dev freifunk
+{% if 'wg_backbone_v4' in vars %}
+	up ip -4 addr add {{ wg_backbone_v4 }} dev freifunk
+{% else %}
+	# not connected to v4 backbone
+{% endif %}
+{% if 'wg_backbone_v6' in vars %}
+	up ip -6 addr add {{ wg_backbone_v6 }} dev freifunk
+{% else %}
+	# not connected to v6 backbone
 {% endif %}
 {% if ffrl_local is defined %}
 	up ip -4 addr add {{ ffrl_local.v4 }}/32 dev freifunk
 	up ip -6 addr add {{ ffrl_local.v6 }}/128 dev freifunk
+{% else %}
+	# not connected to ffrl exit
 {% endif %}
 	# allow transparent access to the backbone for etcd
 	up ip route add 172.16.0.0/12 dev freifunk

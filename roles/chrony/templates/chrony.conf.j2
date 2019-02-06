@@ -4,8 +4,8 @@
 pool 2.debian.pool.ntp.org iburst
 
 {% for host in groups['Concentrators'] %}
-{% if wg_backbone_id != hostvars[host]['wg_backbone_id'] %}
-server 172.16.1.{{ hostvars[host]['wg_backbone_id'] }}
+{% if wg_backbone_grp != hostvars[host]['wg_backbone_grp'] and wg_backbone_id != hostvars[host]['wg_backbone_id'] %}
+server 172.16.{{ hostvars[host]['wg_backbone_grp'] }}.{{ hostvars[host]['wg_backbone_id'] }}
 {% endif %}
 {% endfor %}
 

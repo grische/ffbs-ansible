@@ -1,8 +1,9 @@
-router_id: '172.16.1.101'
-etcd_peer_ip: '172.16.1.101'
+router_id: '172.16.2.1'
+etcd_peer_ip: '172.16.2.1'
 wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'C9tO7v6fxnMlWX2sn6xZIj6xPDUwCcScqVn7SLrtvxU='
-wg_backbone_id: '101'
+wg_backbone_grp: '2'
+wg_backbone_id: '1'
 wg_hostname: 'exit1'
 wg_peer_ifname: 'wg-e1'
 wg_peer_port: 2401
