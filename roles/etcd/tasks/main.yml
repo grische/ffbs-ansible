@@ -63,5 +63,10 @@
         "ENDPOINT": "{{etcd_endpoint}}",
         "ENDPOINTS": "{{etcd_endpoints}}"
       }
+- name: Create etcd cluster data init script
+  template:
+    src: "etcd-init.sh"
+    dest: "/root/etcd-init.sh"
+    mode: "0700"
 - name: Initialize etcd cluster data
-  script: etcd-init.sh
+  command: "/root/etcd-init.sh"
