@@ -90,7 +90,7 @@ def apply_config(conf, privkey):
         }
         if_target = {
                 'private_key': privkey,
-                'listen_port': 2300+concentrator['id']
+                'listen_port': 10000+concentrator['id']
         }
         wireguard.update_if(ifname, if_current, if_target)
         peer_current = current.get(ifname, {}).get('peers', {}).get(concentrator['pubkey'], {})
