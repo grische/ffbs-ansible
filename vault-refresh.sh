@@ -1,7 +1,7 @@
 #!/bin/bash
 gpg2 --batch --use-agent --decrypt vault.gpg | \
   gpg2 --batch --use-agent \
-  -r 59941A0EC8051123 \
+  -r BBF68F03E8F37941 \
   -r A2AEB64DC1042B74 \
   -r B294BC06C7552A7A \
   -r BFCDA6A312FDA911 \
