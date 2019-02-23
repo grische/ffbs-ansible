@@ -21,4 +21,6 @@ ETCD_PEER_KEY_FILE="/etc/ssl/etcd/etcd-server.key.pem"
 ETCD_PEER_CLIENT_CERT_AUTH="true"
 ETCD_PEER_TRUSTED_CA_FILE="/etc/ssl/etcd/etcd-ca.pem"
 
-ETCD_AUTO_COMPACTION_RETENTION="24h"
+ETCD_AUTO_COMPACTION_RETENTION="1h"
+
+DAEMON_ARGS="--auto-compaction-retention=1"
