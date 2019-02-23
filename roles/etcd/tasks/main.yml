@@ -1,3 +1,8 @@
+- name: Configurate etcd service with a longer startup timeout
+  copy:
+    src:  'startup.conf'
+    dest: '/etc/systemd/system/etcd.service.d/'
+    mode: 0644
 - name: Install etcd packages
   apt:
     state: present
