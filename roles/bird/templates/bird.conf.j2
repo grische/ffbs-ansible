@@ -20,7 +20,7 @@ protocol device {
 protocol kernel {
 	learn;
 	kernel table 10;
-	metric 64;	# Use explicit kernel route metric to avoid collisions
+	metric 2048;	# Use explicit kernel route metric to avoid collisions
 			# with non-BIRD routes in the kernel routing table
 
 	# Import only routes added by our helper daemons
