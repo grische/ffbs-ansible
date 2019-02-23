@@ -46,7 +46,7 @@ async def check_output_aio(cmd, inp=None):
 async def get_signature(msg):
     return await check_output_aio("signify-openbsd -S -m'-' -s /etc/ffbs/node-config-priv.key -x-", msg)
 
-async def insert_new_node(pubkey_hex):
+async def insert_new_node(pubkey_esc):
     success = False
     while not success:
         next_id_raw, _ = await etcd_client.get('next_free_id')
@@ -54,33 +54,33 @@ async def insert_new_node(pubkey_hex):
         info = util.addresses_from_number(next_id)
         info['retry'] = RETRY_TIME_FOR_REGISTERED
         info['id'] = next_id
-        on_success = [KV.put.txn('/config/{}/{}'.format(pubkey_hex,k), str(v)) for k,v in info.items()]
+        on_success = [KV.put.txn('/config/{}/{}'.format(pubkey_esc,k), str(v)) for k,v in info.items()]
         on_success = [KV.put.txn('next_free_id', str(next_id+1))] + on_success
         compare = [transaction.Value('next_free_id') == next_id_raw]
         success, _ = await etcd_client.txn(compare=compare, success=on_success)
 
-async def config_for(pubkey_hex, no_retry=False):
+async def config_for(pubkey_esc, no_retry=False):
     config = dict()
-    for key in ['default', pubkey_hex]:
+    for key in ['default', pubkey_esc]:
         raw = await etcd_client.range(key_range=range_prefix('/config/{}/'.format(key)))
         config.update(dict([(a[0].decode().split('/', 3)[-1], conv_val(a[1])) for a in raw]))
     if not 'id' in config and not no_retry:
-        await insert_new_node(pubkey_hex)
-        config = await config_for(pubkey_hex, no_retry=True)
+        await insert_new_node(pubkey_esc)
+        config = await config_for(pubkey_esc, no_retry=True)
     return config
 
 async def web_config(request):
-    if 'pubkey' in request.query and 'nonce' in request.query:
+    if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
         pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_hex = util.pubkey_to_key(pubkey.encode()).decode()
+        pubkey_esc = util.escape_pubkey(pubkey.encode()).decode()
         nonce = request.query.get('nonce')
-        if pubkey_hex and nonce:
-            raw = await config_for(pubkey_hex)
+        if pubkey_esc and nonce:
+            raw = await config_for(pubkey_esc)
             raw['nonce'] = nonce
             raw['time'] = int(time.time())
             conf = json.dumps(raw)
             sig = await get_signature(conf)
-            sig_cache[(pubkey_hex,nonce)] = (sig, time.time())
+            sig_cache[(pubkey_esc,nonce)] = (sig, time.time())
             return web.Response(content_type='application/json', text=conf)
         else:
             return web.Response(status=400)
@@ -88,13 +88,13 @@ async def web_config(request):
         return web.Response(status=400)
 
 async def web_config_sig(request):
-    if 'pubkey' in request.query and 'nonce' in request.query:
+    if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
         pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_hex = util.pubkey_to_key(pubkey.encode()).decode()
+        pubkey_esc = util.escape_pubkey(pubkey.encode()).decode()
         nonce = request.query.get('nonce')
-        if pubkey_hex and nonce:
-            if (pubkey_hex,nonce) in sig_cache:
-                sig = sig_cache[(pubkey_hex,nonce)][0]
+        if pubkey_esc and nonce:
+            if (pubkey_esc,nonce) in sig_cache:
+                sig = sig_cache[(pubkey_esc,nonce)][0]
                 return web.Response(content_type='text/plain', text=sig)
             else:
                 return web.Response(status=404)

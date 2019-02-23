@@ -1,3 +1,4 @@
+import binascii
 import codecs
 import ipaddress
 
@@ -15,13 +16,16 @@ def addresses_from_number(num):
     range6 = as_v6(v6base | (num << 64))+'/64'
     return dict(address4=address4, range4=range4, address6=address6, range6=range6)
 
-def pubkey_to_key(pubkey):
-    raw = codecs.decode(pubkey, 'base64')
-    assert len(raw) == 32
-    return codecs.encode(raw, 'hex')
+def escape_pubkey(pubkey):
+    return pubkey.replace('+','-').replace('/','_')
 
-def key_to_pubkey(key):
-    raw = codecs.decode(key, 'hex')
-    assert len(raw) == 32
-    return codecs.encode(raw, 'base64').rstrip()
+def unescape_pubkey(key):
+    return key.replace('-','+').replace('_','/')
+
+def verify_pubkey(pubkey):
+    try:
+        raw = codecs.decode(pubkey, 'base64')
+        return len(raw) == 32
+    except binascii.Error:
+        return False
 
