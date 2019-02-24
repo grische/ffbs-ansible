@@ -40,11 +40,6 @@ protocol ospf {
 	import all;
 	export all;
 }
-
-protocol static unreachable_default {
-        preference 0;
-        route ::/0 reject;
-}
 {% if ffrl_peers is defined %}
 
 define FFRL_IP = {{ ffrl_local.v6 }};
