@@ -21,7 +21,8 @@ def get_wg_active_nets():
             if (now - peer['latest_handshake']) > WG_TIMEOUT:
                 continue
             for ip in peer['allowed_ips']:
-                if ip.startswith("10."):
+                # we're not interested in default routes
+                if not ip.endswith('/0'):
                     result.append(ip)
     result.sort()
     return result
@@ -65,8 +66,7 @@ def set_wg_route(oif, dst, action):
         proto=RT_PROTO,
         oif=oif,
         type='unicast',
-        dst_len=dst_len,
-        dst=dst,
+        dst='{}/{}'.format(dst, dst_len),
     )
 
 
