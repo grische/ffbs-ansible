@@ -54,6 +54,7 @@
   - exit1
   become: True
   roles:
+    - iptables
     - wireguard-exit
 - hosts: Nodes:!UCI-Nodes
   become: True

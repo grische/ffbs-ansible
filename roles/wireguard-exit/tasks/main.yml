@@ -4,9 +4,6 @@
     - files: "{{ lookup('env','USER') }}-{{ inventory_hostname }}.yml"
       skip: true
 
-- name: Install iptables-persistent package
-  apt: name=iptables-persistent state=present
-
 - name: Create wireguard configuration
   template:
     src: 'wireguard.j2'
@@ -18,17 +15,3 @@
     dest: '/etc/network/interfaces.d/{{ wg_exit_ifname }}'
   notify:
   - Activate exit interface
-
-- name: Configure IPv4 firewall
-  template:
-    src: 'iptables.j2'
-    dest: '/etc/iptables/rules.v4'
-  notify:
-  - Reload firewall
-
-- name: Configure IPv6 firewall
-  template:
-    src: 'ip6tables.j2'
-    dest: '/etc/iptables/rules.v6'
-  notify:
-  - Reload firewall
