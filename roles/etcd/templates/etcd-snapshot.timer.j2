@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily etcd snapshot run
+
+[Timer]
+OnCalendar=*-*-* 2:00:00
+RandomizedDelaySec=4hours
+Persistent=true
+Unit=etcd-snapshot.service
+
+[Install]
+WantedBy=timers.target

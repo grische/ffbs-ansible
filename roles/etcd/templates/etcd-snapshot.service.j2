@@ -1,0 +1,11 @@
+[Unit]
+Description=Create etcd snapshot
+
+[Service]
+Environment=ETCDCTL_API=3
+Environment=ETCDCTL_CACERT=/etc/ssl/etcd/etcd-ca.pem
+Environment=ETCDCTL_CERT=/etc/ssl/etcd/etcd-client.cert.pem
+Environment=ETCDCTL_KEY=/etc/ssl/etcd/etcd-client.key.pem
+Environment=ETCDCTL_ENDPOINTS=https://{{etcd_endpoint}}/
+Type=simple
+ExecStart=/usr/bin/etcdctl snapshot save /var/lib/etcd/snap.db
