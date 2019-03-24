@@ -75,3 +75,5 @@
       - wamerican
       - xauth
       - xdg-user-dirs
+- name: Run needrestart in auto mode
+  command: needrestart -r a
