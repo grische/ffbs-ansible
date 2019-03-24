@@ -3,6 +3,13 @@
     src:  'policy-rc.d'
     dest: '/usr/sbin/'
     mode: 0755
+- name: Cofigure APT sources
+  template:
+    src: "sources.list.j2"
+    dest: "/etc/apt/sources.list"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 - name: Install etckeeper package
   become: true
   apt: name=etckeeper update_cache=yes state=present

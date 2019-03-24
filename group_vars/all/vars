@@ -1,5 +1,1 @@
-apt__repositories:
-  - repo: 'deb http://deb.debian.org/debian testing main'
-  - repo: 'deb http://deb.debian.org/debian unstable main'
-apt_preferences__list:
-  - '{{ apt_preferences__preset_list | list }}'
+apt_mirror: 'http://debian.tu-bs.de/debian'

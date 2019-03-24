@@ -3,8 +3,6 @@
   become: True
   roles:
     - users
-    - role: debops.apt_preferences
-    - role: debops.apt
     - common
     - wireguard
 - hosts: WebServers

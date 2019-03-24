@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+deb {{ apt_mirror }} stretch main
+deb {{ apt_mirror }} stretch-updates main
+deb {{ apt_mirror }} stretch-backports main
+
+deb http://security.debian.org/ stretch/updates main
+
+deb {{ apt_mirror }} testing main
+deb {{ apt_mirror }} unstable main

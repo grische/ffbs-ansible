@@ -49,12 +49,6 @@ Next, download the git repository and change into it:
    git clone https://gitli.stratum0.org/ffbs/ffbs-ansible.git
    cd ffbs-ansible
 
-Install the used ansible galaxy roles:
-
-::
-
-   ansible-galaxy install -r requirements.yml
-
 Now you can start the machines, vagrant will download the images as necessary
 and provision the machines after creating them:
 
