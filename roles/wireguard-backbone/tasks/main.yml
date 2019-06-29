@@ -3,6 +3,8 @@
     src: 'wireguard.j2'
     dest: '/etc/wireguard/{{ hostvars[item].wg_peer_ifname }}.conf'
   with_items: '{{ groups.Concentrators| union(groups.Exits) | difference([inventory_hostname])}}'
+  notify:
+  - Update backbone wireguard configs
 
 - name: Create wireguard interfaces
   template:
