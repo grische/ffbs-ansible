@@ -1,4 +1,4 @@
-- name: Configurate etcd service with a longer startup timeout
+- name: Configurate etcd service with a longer startup timeout and automatic restart
   copy:
     src:  'startup.conf'
     dest: '/etc/systemd/system/etcd.service.d/'
