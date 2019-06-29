@@ -1,5 +1,13 @@
 - name: Install bird package
   apt: name=bird state=present
+- name: Configurate bird service startup
+  copy:
+    src:  'startup.conf'
+    dest: '/etc/systemd/system/{{ item }}.service.d/'
+    mode: 0644
+  with_items:
+  - bird
+  - bird6
 - name: Configure bird (v4)
   template:
     src: "bird.conf.j2"
