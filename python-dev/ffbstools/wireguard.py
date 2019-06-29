@@ -14,7 +14,7 @@ def get_dict():
             continue
         device = result.setdefault(line[0], {})
         if not device:
-            device['private_key'] = line[1]
+            # we don't need the private key
             device['public_key'] = line[2]
             device['listen_port'] = int(line[3])
             peers = device['peers'] = {}
