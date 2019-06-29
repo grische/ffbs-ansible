@@ -1,3 +1,8 @@
+- name: Configurate bind9 service startup
+  copy:
+    src:  'startup.conf'
+    dest: '/etc/systemd/system/bind9.service.d/'
+    mode: 0644
 - name: Confine bind9 to the vrf
   copy:
     src:  'vrf.conf'
