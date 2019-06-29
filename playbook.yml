@@ -1,4 +1,15 @@
 ---
+- hosts:
+  - Concentrators
+  tasks:
+  - name: Add additional host for exit2 # This is for hosts managed outside of vagrant
+    add_host:
+      name: 'exit2'
+      groups:
+      - Backbone
+      - Exits
+  tags:
+  - with_prod
 - hosts: all:!UCI-Nodes
   become: True
   roles:

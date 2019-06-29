@@ -1,0 +1,10 @@
+ansible_host: 'zelda.freifunk-bs.de'
+
+router_id: '172.16.2.2'
+etcd_peer_ip: '172.16.2.2'
+wg_public_key: 'MOgfNHbnqkf5Kekw7lLM3oA7p6SGVEm2PQSfJtmeSxo='
+wg_backbone_grp: '2'
+wg_backbone_id: '2'
+wg_hostname: 'zelda.freifunk-bs.de'
+wg_peer_ifname: 'wg-e2'
+wg_peer_port: 2402
