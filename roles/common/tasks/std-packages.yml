@@ -41,6 +41,7 @@
       - signify-openbsd
       - psmisc
       - dwdiff
+      - dnsutils
 - name: Remove useless packages
   become: true
   apt:
