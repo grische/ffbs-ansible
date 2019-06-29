@@ -44,7 +44,7 @@ async def get_nodes():
             continue
         # FIXME convert key
         try:
-            pubkey = util.unescape_pubkey(confkey).decode('ascii')
+            pubkey = util.unescape_pubkey(confkey)
         except ValueError:
             print('bad etcd node key {}'.format(confkey))
             continue
