@@ -24,7 +24,7 @@ def unescape_pubkey(key):
 
 def verify_pubkey(pubkey):
     try:
-        raw = codecs.decode(pubkey, 'base64')
+        raw = codecs.decode(pubkey.encode(), 'base64')
         return len(raw) == 32
     except binascii.Error:
         return False

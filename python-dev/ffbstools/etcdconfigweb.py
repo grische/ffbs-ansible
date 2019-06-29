@@ -72,7 +72,7 @@ async def config_for(pubkey_esc, no_retry=False):
 async def web_config(request):
     if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
         pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_esc = util.escape_pubkey(pubkey.encode()).decode()
+        pubkey_esc = util.escape_pubkey(pubkey)
         nonce = request.query.get('nonce')
         if pubkey_esc and nonce:
             raw = await config_for(pubkey_esc)
@@ -90,7 +90,7 @@ async def web_config(request):
 async def web_config_sig(request):
     if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
         pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_esc = util.escape_pubkey(pubkey.encode()).decode()
+        pubkey_esc = util.escape_pubkey(pubkey)
         nonce = request.query.get('nonce')
         if pubkey_esc and nonce:
             if (pubkey_esc,nonce) in sig_cache:
