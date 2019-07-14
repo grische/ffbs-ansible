@@ -1,7 +1,7 @@
 - name: Install python development packages
   apt:
     state: latest
-    default_release: testing
+    default_release: buster
     name:
       - python3.7
       - python3.7-venv
