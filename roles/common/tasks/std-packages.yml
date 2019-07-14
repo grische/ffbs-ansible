@@ -18,6 +18,8 @@
   apt:
     state: present
     name:
+      - acl
+      - netcat-openbsd
       - aptitude
       - htop
       - locales-all
