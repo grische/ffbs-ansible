@@ -1,0 +1,12 @@
+[Unit]
+Description=yanic
+
+[Service]
+Type=simple
+User=yanic
+ExecStart=/srv/yanic/bin/yanic serve --config /etc/yanic.conf
+Restart=always
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
