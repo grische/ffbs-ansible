@@ -26,6 +26,7 @@ setup(name='ffbstools',
               'ffbs-node-config = ffbstools.nodeconfig:main',
               'ffbs-node-route = ffbstools.noderoute:main',
               'ffbs-wireguard = ffbstools.wireguard:main',
+              'ffbs-polld = ffbstools.polld:main',
           ]
       },
 )
