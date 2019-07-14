@@ -1,0 +1,7 @@
+---
+meshviewer_home: '/srv/meshviewer'
+#meshviewer_git_repo: 'https://github.com/ffrgb/meshviewer.git' 
+meshviewer_git_repo: 'https://gitli.stratum0.org/ffbs/meshviewer.git' 
+meshviewer_git_version: '1dfe8951ac0d9fd0983d1ada2c570202dcccf0ab'
+meshviewer_path_bin: '{{meshviewer_home}}/pub'
+meshviewer_path_src: '{{meshviewer_home}}/src'
