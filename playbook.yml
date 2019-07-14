@@ -22,9 +22,8 @@
     - nginx
     - firmware-index
 - hosts:
-  - Concentrators
-  - WebServers
-  - Exits
+  - Backbone
+  strategy: free
   become: True
   roles:
     - vrf

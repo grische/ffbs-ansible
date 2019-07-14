@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
             "Exits" => ["exit1"],
             "Nodes" => ["node1", "node2", "node3"],
             "UCI-Nodes" => ["node2", "node3"],
-            "Backbone" => ["concentrator1", "concentrator2", "concentrator3", "exit1"],
+            "Backbone" => ["concentrator1", "concentrator2", "concentrator3", "exit1", "web"],
         }
         #ansible.tags = "devel"
     end

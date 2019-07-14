@@ -2,7 +2,7 @@
   template:
     src: 'wireguard.j2'
     dest: '/etc/wireguard/{{ hostvars[item].wg_peer_ifname }}.conf'
-  with_items: '{{ groups.Concentrators| union(groups.Exits) | difference([inventory_hostname])}}'
+  with_items: '{{ groups.Backbone | difference([inventory_hostname])}}'
   notify:
   - Update backbone wireguard configs
 
@@ -10,7 +10,7 @@
   template:
     src: 'interface.j2'
     dest: '/etc/network/interfaces.d/{{ hostvars[item].wg_peer_ifname }}'
-  with_items: '{{ groups.Concentrators | union(groups.Exits) | difference([inventory_hostname])}}'
+  with_items: '{{ groups.Backbone | difference([inventory_hostname])}}'
   notify:
   - Activate backbone interfaces
 
