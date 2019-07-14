@@ -1,0 +1,4 @@
+- name: restart influxd
+  service:
+    name: influxd
+    state: restarted
