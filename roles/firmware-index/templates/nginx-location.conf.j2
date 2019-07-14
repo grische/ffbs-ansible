@@ -2,13 +2,17 @@
 location / {
 	alias /var/www/firmware/;
 	index index.html;
-	autoindex on;
+	fancyindex on;
+	fancyindex_name_length 255;
+	#fancyindex_localtime on;
 }
 
 location /raw {
 	alias /var/www/firmware;
 	index none;
-	autoindex on;
+	fancyindex on;
+	fancyindex_name_length 255;
+	#fancyindex_localtime on;
 }
 
 location /.git {

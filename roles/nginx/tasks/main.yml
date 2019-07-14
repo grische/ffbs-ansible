@@ -1,7 +1,12 @@
 ---
 - name: Install required packages
   become: true
-  apt: name=nginx state=present update_cache=yes
+  apt:
+    name:
+    - nginx
+    - libnginx-mod-http-fancyindex
+    state: present
+    update_cache: yes
 - name: Create nginx default snippet directory
   become: true
   file:
