@@ -5,6 +5,7 @@ import time
 import zlib
 
 from aioetcd3.help import range_prefix
+from influxdb import InfluxDBClient
 
 from ffbstools.etcd import etcd_client
 
@@ -19,14 +20,49 @@ indirect = dict()
 # list of mesh mac addresses of direct nodes to ignore, map from mac addres to insertion time
 blacklist = dict()
 
+def influxdb_wireguard(address, info):
+    node_id = None
+    for v in info.values():
+        if 'node_id' in v:
+            node_id = v['node_id']
+    if node_id is None:
+        print('no node_id found in data from', address[0])
+        return
+    if 'wireguard' not in info:
+        print('no wireguard report found in data from', address[0])
+        return
+    points = []
+    for if_name, if_info in info['wireguard']['interfaces'].items():
+        for peer_key, peer_info in if_info['peers'].items():
+            points.append({
+                "measurement": "wireguard",
+                "tags": {
+                    "nodeid": node_id,
+                    "interface": if_name,
+                    "peer": peer_key,
+                },
+                "fields": {
+                    "handshake": peer_info['latest_handshake'],
+                    "rx": peer_info['transfer_rx'],
+                    "tx": peer_info['transfer_tx'],
+                },
+            })
+    influx.write_points(points)
+
+
 class ResponddProtocol:
     def connection_made(self, transport):
         self.transport = transport
 
     def datagram_received(self, data, address):
-        self.transport.sendto(data, YANIC_ADDR) 
+        self.transport.sendto(data, YANIC_ADDR)
+
+        info = json.loads(inflate(data))
+        #trace.write(json.dumps(info, indent=4)+'\n')
+
+        influxdb_wireguard(address, info)
+
         if address[0].endswith('::1'):
-            info = json.loads(inflate(data))
             if info['nodeinfo']:
                 for mesh in info['nodeinfo']['network']['mesh'].values():
                     for macs in mesh['interfaces'].values():
@@ -90,6 +126,9 @@ def mac_to_ipv6(mac, prefix):
     for i in range(0, len(parts), 2):
         ipv6.append(''.join(parts[i:i+2]))
     return ':'.join(ipv6)
+
+#trace = open('/tmp/polld-trace', 'w')
+influx = InfluxDBClient(database='ffbs')
 
 def main():
     loop = asyncio.get_event_loop()

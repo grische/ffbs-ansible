@@ -14,6 +14,7 @@ setup(name='ffbstools',
           'aiohttp',
           'pyroute2',
           'requests',
+          'influxdb',
       ],
       entry_points={
           'console_scripts': [
