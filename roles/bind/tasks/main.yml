@@ -1,4 +1,4 @@
-- name: Configurate bind9 service startup
+- name: Configure bind9 service startup
   copy:
     src:  'startup.conf'
     dest: '/etc/systemd/system/bind9.service.d/'
