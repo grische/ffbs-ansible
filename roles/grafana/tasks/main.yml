@@ -51,6 +51,7 @@
   with_items:
   - global.json
   - node.json
+  - wireguard.json
 
 - name: Enable grafana
   service:
