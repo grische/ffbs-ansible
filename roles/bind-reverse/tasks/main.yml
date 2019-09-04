@@ -36,3 +36,18 @@
     state: present
   notify:
     - Reload bind zones
+- name: Create 2001:bf7:380::/44 reverse zone
+  template:
+    src: "db.reverse-v6.j2"
+    dest: "/etc/bind/db.reverse-v6"
+  notify:
+    - Reload bind zones
+- name: Enable 2001:bf7:380::/44 reverse zone
+  become: true
+  lineinfile:
+    dest: "/etc/bind/named.conf.local"
+    regexp: '^zone "8.3.0.7.f.b.0.1.0.0.2.ip6'
+    line: 'zone "8.3.0.7.f.b.0.1.0.0.2.ip6.arpa" { type master; file "/etc/bind/db.reverse-v6"; };'
+    state: present
+  notify:
+    - Reload bind zones
