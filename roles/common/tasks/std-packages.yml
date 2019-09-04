@@ -44,6 +44,7 @@
       - psmisc
       - dwdiff
       - dnsutils
+      - iputils-tracepath
 - name: Remove useless packages
   become: true
   apt:
