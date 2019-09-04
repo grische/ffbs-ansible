@@ -1,6 +1,7 @@
 {% set ifname = wg_exit_ifname %}
 auto {{ ifname }}
 iface {{ ifname }} inet static
+	mtu {{ wg_mtu }}
 	address {{ wg_exit_address_v4 }}
 	up ip -4 r replace default via {{ wg_exit_gateway_v4 }} vrf freifunk proto freifunk
 	up ip -6 a add {{ wg_exit_address_v6 }} dev {{ ifname }}

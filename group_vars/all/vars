@@ -1,1 +1,2 @@
+wg_mtu: '1375'
 apt_mirror: 'http://debian.tu-bs.de/debian'

@@ -2,6 +2,7 @@
 {% set ifname = peer.wg_peer_ifname %}
 auto {{ ifname }}
 iface {{ ifname }} inet static
+	mtu {{ wg_mtu }}
 	address {{ wg_backbone_v4 }}
 	pointopoint {{ peer.wg_backbone_v4 }}
 	pre-up ip link add {{ ifname }} type wireguard
