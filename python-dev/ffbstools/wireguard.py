@@ -5,7 +5,12 @@ from tempfile import NamedTemporaryFile
 
 
 def get_dict():
-    output = subprocess.check_output("wg show all dump".split()).decode('ascii')
+    output = None
+    while output is None:
+        try:
+            output = subprocess.check_output("wg show all dump".split(), timeout=60).decode('ascii')
+        except subprocess.TimeoutExpired:
+            print('`wg show all dump` timed out, retrying')
     result = {}
     peers = None
     for line in output.splitlines():
