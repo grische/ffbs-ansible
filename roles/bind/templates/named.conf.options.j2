@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 acl freifunk {
 	10.0.0.0/8;
 	172.16.0.0/16;
@@ -18,5 +19,14 @@ options {
 	listen-on-v6 { any; };
 
 	recursion yes;
+	max-cache-size 128M; # default is unlimited
 	allow-query { freifunk; };
+{% if dns_forwarders %}
+	forward first;
+	forwarders {
+{% for forwarder in dns_forwarders %}
+		{{ forwarder }};
+{% endfor %}
+	};
+{% endif %}
 };
