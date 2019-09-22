@@ -30,3 +30,9 @@ options {
 	};
 {% endif %}
 };
+
+statistics-channels {
+	# allow http://172.16.x.y:8053/ for statistics access
+	# (localhost is difficult because of the vrf)
+	inet * port 8053 allow { 172.16.0.0/16; };
+};
