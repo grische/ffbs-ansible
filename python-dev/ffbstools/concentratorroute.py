@@ -12,6 +12,8 @@ WG_TIMEOUT = 180
 TABLE = 10
 RT_PROTO = 23
 
+ip_route = IPRoute()
+
 def get_wg_active_nets():
     result = []
     now = time.time()
@@ -29,8 +31,7 @@ def get_wg_active_nets():
 
 def get_wg_links():
     result = {}
-    ip = IPRoute()
-    for link in ip.get_links():
+    for link in ip_route.get_links():
         linkinfo = link.get_attr('IFLA_LINKINFO')
         if not linkinfo:
             continue
@@ -47,8 +48,7 @@ def get_wg_links():
 
 def get_wg_routes():
     result = []
-    ip = IPRoute()
-    for route in ip.get_routes(table=TABLE):
+    for route in ip_route.get_routes(table=TABLE):
         if not route['type'] == rt_type['unicast']:
             continue
         if not route['proto'] == RT_PROTO:
@@ -60,8 +60,7 @@ def get_wg_routes():
 def set_wg_route(oif, dst, action):
     dst, dst_len = dst.split('/', 1)
     dst_len = int(dst_len)
-    ip = IPRoute()
-    ip.route(action,
+    ip_route.route(action,
         table=TABLE,
         proto=RT_PROTO,
         oif=oif,
