@@ -8,10 +8,15 @@
   become: true
   apt:
     state: latest
-    default_release: stretch-backports
+    name:
+      - dkms
+- name: Install kernel header packages
+  become: true
+  apt:
+    state: latest
+    default_release: buster-backports # must match base image
     name:
       - linux-headers-amd64
-      - dkms
 - name: Install wireguard packages
   become: true
   apt:
