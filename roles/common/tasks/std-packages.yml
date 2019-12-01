@@ -3,14 +3,14 @@
     src:  'policy-rc.d'
     dest: '/usr/sbin/'
     mode: 0755
-- name: Cofigure APT default release
+- name: Configure APT default release
   template:
     src: "apt.conf.j2"
     dest: "/etc/apt/apt.conf"
     owner: "root"
     group: "root"
     mode: "0644"
-- name: Cofigure APT sources
+- name: Configure APT sources
   template:
     src: "sources.list.j2"
     dest: "/etc/apt/sources.list"
