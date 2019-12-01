@@ -3,6 +3,11 @@
   service:
     name: yanic
     state: restarted
+    
+- name: restart ffbs-polld
+  service:
+    name: ffbs-polld
+    state: restarted
 
 - name: reload systemd
   command: systemctl daemon-reload

@@ -35,13 +35,18 @@
   - "{{ yanic_meshviewer_path }}"
   - "{{ yanic_var_path }}"
 
-- name: Install system unit
-  template:
-    src: yanic.service
-    dest: /etc/systemd/system/yanic.service
+- name: Install system units
+  copy:
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: 'yanic.service', dest: '/etc/systemd/system/', mode: 644 }
+    - { src: 'ffbs-polld.service', dest: '/etc/systemd/system/', mode: 644 }
   notify:
     - reload systemd
     - restart yanic
+    - restart ffbs-polld
 
 - name: Enable yanic
   service:

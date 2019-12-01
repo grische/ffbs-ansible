@@ -16,11 +16,6 @@
     - users
     - common
     - wireguard
-- hosts: WebServers
-  become: True
-  roles:
-    - nginx
-    - firmware-index
 - hosts:
   - Backbone
   strategy: free
@@ -52,6 +47,15 @@
     - bind
     - bind-reverse
     - chrony
+- hosts: WebServers
+  become: True
+  roles:
+    - nginx
+    - firmware-index
+    - influxdb
+    - grafana
+    - yanic
+    - meshviewer
 - hosts:
   - client
   - concentrator1
