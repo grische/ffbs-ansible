@@ -1,4 +1,4 @@
-- name: restart influxd
+- name: restart influxdb
   service:
-    name: influxd
+    name: influxdb
     state: restarted

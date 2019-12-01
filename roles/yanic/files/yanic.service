@@ -1,5 +1,7 @@
 [Unit]
 Description=yanic
+After=influxdb.service
+Wants=influxdb.service
 
 [Service]
 Type=simple
