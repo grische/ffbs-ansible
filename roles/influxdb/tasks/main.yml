@@ -1,7 +1,3 @@
-- name: Install apt-transport-https
-  apt:
-    name: apt-transport-https
-
 - name: Add influxdb key
   apt_key:
     id: 684A14CF2582E0C5
