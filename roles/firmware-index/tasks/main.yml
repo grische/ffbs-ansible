@@ -1,9 +1,7 @@
 ---
 - name: Install required packages
   become: true
-  apt: name={{item}} state=present update_cache=yes
-  with_items:
-    - git
+  apt: name=git state=present update_cache=yes
 - name: Configurate firmware anycase address on the vrf
   copy:
     src:  'vrf.conf'
