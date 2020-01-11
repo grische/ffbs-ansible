@@ -21,10 +21,7 @@ except ModuleNotFoundError:
     import util
 
 
-EXPIRE_TIME=60
 RETRY_TIME_FOR_REGISTERED=600
-
-sig_cache = dict()
 
 def conv_val(raw):
     try:
@@ -44,7 +41,8 @@ async def check_output_aio(cmd, inp=None):
     return outp
 
 async def get_signature(msg):
-    return await check_output_aio("signify-openbsd -S -m'-' -s /etc/ffbs/node-config-priv.key -x-", msg)
+    sig = await check_output_aio("signify-openbsd -S -m'-' -s /etc/ffbs/node-config-priv.key -x-", msg)
+    return sig.split('\n')[1]
 
 async def insert_new_node(pubkey_esc):
     success = False
@@ -78,48 +76,21 @@ async def web_config(request):
             raw = await config_for(pubkey_esc)
             raw['nonce'] = nonce
             raw['time'] = int(time.time())
-            conf = json.dumps(raw)
+            conf = json.dumps(raw)+'\n'
             sig = await get_signature(conf)
-            sig_cache[(pubkey_esc,nonce)] = (sig, time.time())
-            return web.Response(content_type='application/json', text=conf)
+            return web.Response(content_type='text/plain', text=conf+sig)
         else:
             return web.Response(status=400)
     else:
         return web.Response(status=400)
-
-async def web_config_sig(request):
-    if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
-        pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_esc = util.escape_pubkey(pubkey)
-        nonce = request.query.get('nonce')
-        if pubkey_esc and nonce:
-            if (pubkey_esc,nonce) in sig_cache:
-                sig = sig_cache[(pubkey_esc,nonce)][0]
-                return web.Response(content_type='text/plain', text=sig)
-            else:
-                return web.Response(status=404)
-        else:
-            return web.Response(status=400)
-    else:
-        return web.Response(status=400)
-
-async def cleanup():
-    while True:
-        now = time.time()
-        for k in list(sig_cache.keys()):
-            if now-EXPIRE_TIME > sig_cache[k][1]:
-                del sig_cache[k]
-        await asyncio.sleep(EXPIRE_TIME)
 
 def main():
     app = web.Application()
     app.router.add_get('/config', web_config)
-    app.router.add_get('/config.sig', web_config_sig)
     loop = asyncio.get_event_loop()
     handler = app.make_handler()
     f = loop.create_server(handler, ('::','0.0.0.0'), 8080)
     srv = loop.run_until_complete(f)
-    cleaner = loop.create_task(cleanup())
     print('serving on', [s.getsockname() for s in srv.sockets])
     loop.run_forever()
 
