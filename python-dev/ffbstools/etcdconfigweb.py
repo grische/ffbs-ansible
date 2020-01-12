@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 import asyncio
 import json
-import re
+import socket
 import time
-
-from subprocess import check_output
 
 from aioetcd3.help import range_prefix
 from aioetcd3.kv import KV
@@ -23,11 +21,24 @@ except ModuleNotFoundError:
 
 RETRY_TIME_FOR_REGISTERED=600
 
+class ResolveError(Exception):
+    pass
+
 def conv_val(raw):
     try:
         return json.loads(raw.decode())
     except json.decoder.JSONDecodeError:
         return raw.decode()
+
+async def resolve(host, port, force_v4=False):
+    loop = asyncio.get_event_loop()
+    family = socket.AF_INET if force_v4 else socket.AF_INET6
+    result = await loop.getaddrinfo(host, port, family=family, proto=socket.IPPROTO_UDP)
+    if len(result) == 0:
+        raise ResolveError()
+    else:
+        ip = result[0][4][0]
+        return ip if force_v4 else '['+ip+']'
 
 async def check_output_aio(cmd, inp=None):
     proc = await asyncio.create_subprocess_shell(cmd,
@@ -74,6 +85,13 @@ async def web_config(request):
         nonce = request.query.get('nonce')
         if pubkey_esc and nonce:
             raw = await config_for(pubkey_esc)
+            force_v4 = ':' not in request.headers.get('x-real-ip', '')
+            for concentrator in raw.get('concentrators', []):
+                if 'endpoint' not in concentrator:
+                    continue
+                host, port = concentrator['endpoint'].split(':', 1)
+                resolved = await resolve(host, int(port), force_v4)
+                concentrator['endpoint'] = ':'.join((resolved, port))
             raw['nonce'] = nonce
             raw['time'] = int(time.time())
             conf = json.dumps(raw)+'\n'
@@ -96,4 +114,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
