@@ -2,6 +2,7 @@
 import asyncio
 import json
 import time
+import traceback
 import zlib
 
 from aioetcd3.help import range_prefix
@@ -9,8 +10,8 @@ from influxdb import InfluxDBClient
 
 from ffbstools.etcd import etcd_client
 
-POLL_INTERVAL = 10
-PRUNE_INTERVAL = 15
+POLL_INTERVAL = 60
+PRUNE_INTERVAL = 300
 CONFIG_PREFIX = '/config/'
 YANIC_ADDR = ('::1', 11001)
 REQUEST = 'GET nodeinfo statistics neighbours wireguard'.encode('ascii')
@@ -83,19 +84,30 @@ async def get_direct_nodes():
             direct.append(v.decode('ascii'))
     return direct
 
-async def task_poll(transport):
+async def task_poll_step(transport):
     loop = asyncio.get_event_loop()
     start = loop.time()
-    while True:
-        nodes = await get_direct_nodes()
-        nodes += [addr for addr, _ in indirect.values()]
-        print('nodes:', nodes)
-        offset = POLL_INTERVAL / len(nodes)
-        for i, node in enumerate(nodes):
-            print('polling', node)
-            await asyncio.sleep(start + i*offset - loop.time())
-            transport.sendto(REQUEST, (node, 1001))
-        start += POLL_INTERVAL
+    nodes = await get_direct_nodes()
+    nodes += [addr for addr, _ in indirect.values()]
+    print('nodes:', nodes)
+    offset = POLL_INTERVAL / len(nodes)
+    for i, node in enumerate(nodes):
+        print('polling', node)
+        await asyncio.sleep(start + i*offset - loop.time())
+        transport.sendto(REQUEST, (node, 1001))
+
+async def task_poll(transport):
+    loop = asyncio.get_event_loop()
+    offset = loop.time()
+    while not loop.is_closed():
+        try:
+            await task_poll_step(transport)
+        except asyncio.CancelledError:
+            break
+        except Exception:  # pylint: disable=broad-except
+            traceback.print_exc()
+        offset += POLL_INTERVAL
+        await asyncio.sleep(offset - loop.time())
 
 async def task_prune():
     global indirect, blacklist
