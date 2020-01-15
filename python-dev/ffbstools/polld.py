@@ -20,6 +20,8 @@ REQUEST = 'GET nodeinfo statistics neighbours wireguard'.encode('ascii')
 indirect = dict()
 # list of mesh mac addresses of direct nodes to ignore, map from mac addres to insertion time
 blacklist = dict()
+# map of last request timestamps
+pings = dict()
 
 def influxdb_wireguard(address, info):
     node_id = None
@@ -50,18 +52,44 @@ def influxdb_wireguard(address, info):
             })
     influx.write_points(points)
 
+def influxdb_delay(address, info, delay):
+    node_id = None
+    for v in info.values():
+        if 'node_id' in v:
+            node_id = v['node_id']
+    if node_id is None:
+        print('no node_id found in data from', address[0])
+        return
+    points = []
+    points.append({
+        "measurement": "respondd-delay",
+        "tags": {
+            "nodeid": node_id,
+        },
+        "fields": {
+            "rtt": delay,
+        },
+    })
+    influx.write_points(points)
 
 class ResponddProtocol:
     def connection_made(self, transport):
         self.transport = transport
 
     def datagram_received(self, data, address):
+        delay = time.monotonic() - pings.get(address[0], 0.0)
+        if delay > POLL_INTERVAL/10:
+            delay = None
+
         self.transport.sendto(data, YANIC_ADDR)
 
         info = json.loads(inflate(data))
         #trace.write(json.dumps(info, indent=4)+'\n')
 
         influxdb_wireguard(address, info)
+
+        if delay is not None:
+            influxdb_delay(address, info, delay)
 
         if address[0].endswith('::1'):
             if info['nodeinfo']:
@@ -94,6 +122,7 @@ async def task_poll_step(transport):
     for i, node in enumerate(nodes):
         print('polling', node)
         await asyncio.sleep(start + i*offset - loop.time())
+        pings[node] = time.monotonic()
         transport.sendto(REQUEST, (node, 1001))
 
 async def task_poll(transport):
