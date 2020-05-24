@@ -23,7 +23,7 @@ yanic_meshviewer_path: "{{yanic_home}}/pub"
 yanic_meshviewer_nodes: "{{yanic_meshviewer_path}}/nodes.json"
 yanic_meshviewer_graph: "{{yanic_meshviewer_path}}/graph.json"
 
-yanic_database_delete_after: "7d"
+yanic_database_delete_after: "90d"
 yanic_database_delete_interval: "1h"
 
 yanic_socket:
