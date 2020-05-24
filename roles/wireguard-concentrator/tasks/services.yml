@@ -13,8 +13,8 @@
     src:  "{{ item }}"
     dest: "/etc/ffbs/"
   with_items:
-    - 'node-config-priv.key'
-    - 'node-config-pub.key'
+    - 'node-config.sec'
+    - 'node-config.pub'
 
 - name: Enable and start systemd service
   systemd:

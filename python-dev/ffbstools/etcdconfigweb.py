@@ -52,7 +52,7 @@ async def check_output_aio(cmd, inp=None):
     return outp
 
 async def get_signature(msg):
-    sig = await check_output_aio("signify-openbsd -S -m'-' -s /etc/ffbs/node-config-priv.key -x-", msg)
+    sig = await check_output_aio("signify-openbsd -S -m'-' -s /etc/ffbs/node-config.sec -x-", msg)
     return sig.split('\n')[1]
 
 async def insert_new_node(pubkey_esc):
@@ -79,6 +79,13 @@ async def config_for(pubkey_esc, no_retry=False):
     return config
 
 async def web_config(request):
+    try:
+        v6mtu = request.query.get('v6mtu', None)
+        if v6mtu is not None:
+            v6mtu = int(v6mtu)
+    except:
+        print("failed to handle v6mtu: {}".format(v6mtu))
+        pass
     if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
         pubkey = request.query.get('pubkey').replace(' ','+')
         pubkey_esc = util.escape_pubkey(pubkey)
@@ -86,6 +93,10 @@ async def web_config(request):
         if pubkey_esc and nonce:
             raw = await config_for(pubkey_esc)
             force_v4 = ':' not in request.headers.get('x-real-ip', '')
+            if v6mtu is not None and v6mtu < 1455:
+                # 1375+40+8+4+4+8+16, see https://www.mail-archive.com/wireguard@lists.zx2c4.com/msg01856.html
+                force_v4 = True
+                print("v6mtu {} too small, using v4".format(v6mtu))
             for concentrator in raw.get('concentrators', []):
                 if 'endpoint' not in concentrator:
                     continue
