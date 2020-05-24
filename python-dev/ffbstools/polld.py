@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import asyncio
 import json
+import random
 import time
 import traceback
 import zlib
@@ -10,16 +11,16 @@ from influxdb import InfluxDBClient
 
 from ffbstools.etcd import etcd_client
 
-POLL_INTERVAL = 60
-PRUNE_INTERVAL = 300
+POLL_INTERVAL = 15
+PRUNE_INTERVAL = 5*POLL_INTERVAL
 CONFIG_PREFIX = '/config/'
 YANIC_ADDR = ('::1', 11001)
 REQUEST = 'GET nodeinfo statistics neighbours wireguard'.encode('ascii')
 
-# list of meshed nodes, map from mesh mac address to (ipv6, insertion time)
-indirect = dict()
-# list of mesh mac addresses of direct nodes to ignore, map from mac addres to insertion time
-blacklist = dict()
+# dict of mesh mac addresses of indirect nodes, with {ip: insertion time} as value
+meshed_mac_ips = dict()
+# dict of mesh mac addresses of direct nodes, with insertion time as value
+direct_macs = dict()
 # map of last request timestamps
 pings = dict()
 
@@ -91,35 +92,50 @@ class ResponddProtocol:
         if delay is not None:
             influxdb_delay(address, info, delay)
 
+        print('received', address[0])
         if address[0].endswith('::1'):
             if info['nodeinfo']:
                 for mesh in info['nodeinfo']['network']['mesh'].values():
                     for macs in mesh['interfaces'].values():
-                        add_to_blacklist(macs)
+                        add_direct_macs(macs)
             if info['neighbours']:
-                print('got neighbours of', address[0])
                 for neighs in info['neighbours']['batadv'].values():
                     for node in neighs['neighbours'].keys():
-                        if node not in blacklist:
-                            indirect[node] = mac_to_ipv6(node, address[0]), time.monotonic()
+                        add_meshed_ip(node, mac_to_ipv6(node, address[0]))
+        else:  # indirect response
+            if info['nodeinfo']:
+                for mesh in info['nodeinfo']['network']['mesh'].values():
+                    for macs in mesh['interfaces'].values():
+                        for mac in macs:
+                            ack_meshed_ip(mac, address[0])
 
-
-async def get_direct_nodes():
+async def get_direct_ips():
+    direct_ips = []
     raw = await etcd_client.range(key_range=range_prefix(CONFIG_PREFIX))
-    direct = []
     for (k, v, meta) in raw:
         if k.decode('ascii').endswith('/address6'):
-            direct.append(v.decode('ascii'))
-    return direct
+            direct_ips.append(v.decode('ascii'))
+    return direct_ips
+
+def get_meshed_ips():
+    meshed_ips = set()
+    for ips in meshed_mac_ips.values():
+        print('ips', ips)
+        best = max(ips.values())
+        selected = random.choice([ip for ip, tries in ips.items() if tries == best])
+        ips[selected] -= 1
+        meshed_ips.add(selected)
+    print('get_meshed_ips:\n from {}\n to {}'.format(meshed_mac_ips, meshed_ips))
+    return list(meshed_ips)
 
 async def task_poll_step(transport):
     loop = asyncio.get_event_loop()
     start = loop.time()
-    nodes = await get_direct_nodes()
-    nodes += [addr for addr, _ in indirect.values()]
+    nodes = await get_direct_ips()
+    nodes += get_meshed_ips()
     print('nodes:', nodes)
     offset = POLL_INTERVAL / len(nodes)
-    for i, node in enumerate(nodes):
+    for i, node in enumerate(sorted(nodes)):
         print('polling', node)
         await asyncio.sleep(start + i*offset - loop.time())
         pings[node] = time.monotonic()
@@ -139,18 +155,38 @@ async def task_poll(transport):
         await asyncio.sleep(offset - loop.time())
 
 async def task_prune():
-    global indirect, blacklist
     while True:
         await asyncio.sleep(PRUNE_INTERVAL)
         print('pruning')
-        old = time.monotonic() - 5 * POLL_INTERVAL
-        indirect = {mac:v for mac, v in indirect.items() if v[1] < old}
-        blacklist = {mac:t for mac, t in blacklist.items() if t < old}
+        old = time.monotonic() - PRUNE_INTERVAL
+        print(direct_macs)
+        for mac in [mac for mac, t in direct_macs.items() if t < old]:
+            del direct_macs[mac]
+        for ips in meshed_mac_ips.values():
+            for ip in [ip for ip, tries in ips.items() if tries <= 0]:
+                del ips[ip]
+        for mac in [mac for mac, ips in meshed_mac_ips.items() if not ips]:
+            del meshed_mac_ips[mac]
 
-def add_to_blacklist(macs):
+def add_direct_macs(macs):
     now = time.monotonic()
-    blacklist.update(map(lambda x: (x, now), macs))
-    [indirect.pop(mac) for mac in macs if mac in indirect]
+    for mac in macs:
+        direct_macs[mac] = now
+        meshed_mac_ips.pop(mac, None)
+
+def add_meshed_ip(mac, ip):
+    if mac in direct_macs:
+        return
+    ips = meshed_mac_ips.setdefault(mac, {})
+    ips[ip] = max(ips.get(ip, 0), 5)
+
+def ack_meshed_ip(mac, ip):
+    if mac in direct_macs:
+        return
+    ips = meshed_mac_ips.get(mac, {})
+    if ip not in ips:
+        return
+    ips[ip] = max(ips.get(ip, 0), 10)
 
 def inflate(data):
     decompress = zlib.decompressobj(-zlib.MAX_WBITS)
