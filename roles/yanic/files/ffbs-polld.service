@@ -3,7 +3,8 @@ Description=Collect information from nodes and push to yanic
 
 [Service]
 Type=simple
-ExecStart=/srv/venv/bin/polld
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/srv/venv/bin/ffbs-polld
 Restart=always
 RestartSec=60
 StartLimitInterval=0

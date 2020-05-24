@@ -53,6 +53,11 @@
     name: yanic
     enabled: yes
 
+- name: Enable ffbs-polld
+  service:
+    name: ffbs-polld
+    enabled: yes
+
 - name: Configure nginx location
   template:
     src: nginx-location.conf.j2
