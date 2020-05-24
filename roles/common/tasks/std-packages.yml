@@ -10,6 +10,13 @@
     owner: "root"
     group: "root"
     mode: "0644"
+- name: Configure APT preferences
+  template:
+    src: "preferences.j2"
+    dest: "/etc/apt/preferences"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 - name: Configure APT sources
   template:
     src: "sources.list.j2"
@@ -52,6 +59,7 @@
       - dwdiff
       - dnsutils
       - iputils-tracepath
+      - rsync
 - name: Remove useless packages
   become: true
   apt:
