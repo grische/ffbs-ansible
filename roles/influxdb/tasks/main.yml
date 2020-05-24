@@ -9,10 +9,20 @@
 
 - name: Install influxdb
   apt:
-    name: influxdb
+    name:
+      - influxdb
+      - influxdb-client
 
 - name: Configurate influxdb
   template:
     src: influxdb.conf.j2
     dest: /etc/influxdb/influxdb.conf
   notify: restart influxdb
+
+- name: Create influxdb ffbs
+  shell: |
+    influx -execute 'CREATE DATABASE ffbs'
+
+- name: Configure influxdb ffbs retention policy
+  shell: |
+    influx -execute 'ALTER RETENTION POLICY autogen ON ffbs DURATION 365d DEFAULT'
