@@ -14,7 +14,7 @@
   become: true
   apt:
     state: latest
-    default_release: buster-backports # must match base image
+    default_release: buster # must match base image
     name:
       - linux-headers-amd64
 - name: Install wireguard packages
@@ -25,6 +25,8 @@
     name:
       - wireguard-dkms
       - wireguard-tools
+- name: Build dkms modules
+  command: dkms autoinstall
 - name: Check if reboot is required
   command: needrestart -b
   register: needrestart
@@ -39,8 +41,6 @@
   wait_for_connection:
     delay: 10
     timeout: 180
-- name: Build dkms modules
-  command: dkms autoinstall
 - name: Gather facts again
   when: needrestart.changed
   setup:
