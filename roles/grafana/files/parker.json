@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1563135989605,
+  "id": 5,
+  "iteration": 1579113628658,
   "links": [],
   "panels": [
     {
@@ -25,21 +25,24 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "ffbs",
-      "description": "Wireguard Traffic",
+      "description": "",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 12,
-        "w": 24,
+        "h": 13,
+        "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "hiddenSeries": false,
+      "id": 3,
       "legend": {
+        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "show": true,
+        "show": false,
         "total": false,
         "values": false
       },
@@ -47,7 +50,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 2,
       "points": false,
@@ -62,20 +67,136 @@
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "nodeid"
               ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "none"
-              ],
-              "type": "fill"
+              "type": "tag"
             }
           ],
+          "measurement": "respondd-delay",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rtt"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "nodeid",
+              "operator": "=~",
+              "value": "/^$node$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "respondd delay",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "ffbs",
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "interval": "1m",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_interface $col",
+          "groupBy": [
+            {
+              "params": [
+                "interface"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
           "measurement": "wireguard",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT non_negative_derivative(\"rx\", 1s) AS \"down\", non_negative_derivative(\"tx\", 1s) AS \"up\" FROM \"wireguard\" WHERE (\"nodeid\" =~ /^$node$/) AND $timeFilter GROUP BY \"interface\"",
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -85,10 +206,6 @@
                   "rx"
                 ],
                 "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
               },
               {
                 "params": [
@@ -109,10 +226,6 @@
                   "tx"
                 ],
                 "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
               },
               {
                 "params": [
@@ -141,7 +254,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "",
+      "title": "wireguard traffic",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -158,8 +271,9 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "decimals": null,
+          "format": "Bps",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -171,7 +285,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -180,8 +294,8 @@
       }
     }
   ],
-  "refresh": false,
-  "schemaVersion": 18,
+  "refresh": "1m",
+  "schemaVersion": 21,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -189,16 +303,15 @@
       {
         "allValue": "(.*)",
         "current": {
-          "selected": true,
-          "text": "6466b38ebc72",
-          "value": "6466b38ebc72"
+          "text": "0c8063c5d33e",
+          "value": "0c8063c5d33e"
         },
         "datasource": "ffbs",
         "definition": "SHOW TAG VALUES FROM \"node\" WITH KEY = \"nodeid\"",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": null,
-        "multi": true,
+        "multi": false,
         "name": "node",
         "options": [],
         "query": "SHOW TAG VALUES FROM \"node\" WITH KEY = \"nodeid\"",
@@ -215,7 +328,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -244,7 +357,7 @@
     ]
   },
   "timezone": "",
-  "title": "Wireguard",
-  "uid": "0mHD_uIWz",
-  "version": 4
+  "title": "Parker",
+  "uid": "hb7RV-EZk",
+  "version": 5
 }
