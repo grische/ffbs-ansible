@@ -4,7 +4,7 @@ wg_private_key: '{{ vault_wg_private_key }}'
 wg_public_key: 'JQZCuxU/6RF7xbQ+hulFJ+RtyleAQ9JP5VP6S3vszlM='
 wg_backbone_id: '1'
 wg_backbone_grp: '1'
-wg_hostname: 'concentrator1'
+wg_hostname: '{{ ansible_host }}'
 wg_peer_ifname: 'wg-c1'
 wg_peer_port: 2301
 wg_gateway_v4: '10.0.0.1'
