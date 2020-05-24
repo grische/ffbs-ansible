@@ -27,7 +27,7 @@
 
 - name: Copy files
   command: >
-    rsync -a --delete
+    rsync -a --delete --checksum
     {{ meshviewer_path_src }}/build/
     {{ meshviewer_path_bin }}/
   when: clone.changed
