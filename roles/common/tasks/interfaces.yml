@@ -1,0 +1,5 @@
+- name: Set /etc/network/interfaces include path
+  # FIXME maybe rename files to *.cfg to avoid this?
+  become: true
+  lineinfile: dest='/etc/network/interfaces' regexp='^source ' line='source /etc/network/interfaces.d/*' state=present
+
