@@ -1,10 +1,11 @@
 - name: Configure remote logging for rsyslog
   copy:
-    src:  'remote.conf'
+    src: 'remote.conf'
     dest: '/etc/rsyslog.d/'
     mode: 0644
+
 - name: Configure logrotate for remote logging
   copy:
-    src:  'remote-rsyslog'
+    src: 'rsyslog-remote'
     dest: '/etc/logrotate.d/'
     mode: 0644
