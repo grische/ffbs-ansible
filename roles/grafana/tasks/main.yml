@@ -9,13 +9,30 @@
 
 - name: Install grafana
   apt:
-    name: grafana
+    name:
+    - grafana
+    # for image renderer
+    - libx11-xcb1
+    - libxtst6
+    - libnss3
+    - libxss1
+    - libasound2
+    - libatk-bridge-2.0-0
+    - libgtk-3-0
   notify: restart grafana
+  register: install
 
 - name: Install plugins
-  command: grafana-cli plugins install grafana-piechart-panel
+  command: "grafana-cli plugins install {{ item }}"
+  with_items:
+  - grafana-piechart-panel
+  - grafana-image-renderer
+  when: install.changed
 
-- name: Configurate grafana
+- name: Update plugins
+  command: "grafana-cli plugins update-all"
+
+- name: Configure grafana
   template:
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
