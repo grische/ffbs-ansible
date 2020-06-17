@@ -13,16 +13,22 @@
       - influxdb
       - influxdb-client
 
-- name: Configurate influxdb
+- name: Configure influxdb
   template:
     src: influxdb.conf.j2
     dest: /etc/influxdb/influxdb.conf
   notify: restart influxdb
 
-- name: Create influxdb ffbs
+- name: Prepare influxdb ffbs
   shell: |
     influx -execute 'CREATE DATABASE ffbs'
+    influx -execute 'ALTER RETENTION POLICY autogen ON ffbs DURATION 366d DEFAULT'
 
-- name: Configure influxdb ffbs retention policy
+- name: Prepare influxdb collectd
   shell: |
-    influx -execute 'ALTER RETENTION POLICY autogen ON ffbs DURATION 365d DEFAULT'
+    influx -execute 'CREATE DATABASE collectd'
+    influx -execute 'ALTER RETENTION POLICY autogen ON collectd DURATION 7d DEFAULT'
+    influx -execute 'CREATE RETENTION POLICY month ON collectd DURATION 31d REPLICATION 1'
+    influx -execute 'CREATE RETENTION POLICY year ON collectd DURATION 366d REPLICATION 1'
+    influx -execute 'CREATE CONTINUOUS QUERY "cq_month" ON "collectd" BEGIN SELECT mean(value) as value INTO "collectd"."month".:MEASUREMENT FROM /.*/ GROUP BY time(300s),* END'
+    influx -execute 'CREATE CONTINUOUS QUERY "cq_year" ON "collectd" BEGIN SELECT mean(value) as value INTO "collectd"."year".:MEASUREMENT FROM /.*/ GROUP BY time(21600s),* END'
