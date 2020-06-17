@@ -416,7 +416,7 @@
           ],
           "measurement": "node",
           "policy": "default",
-          "query": "SELECT mean(\"load\") AS \"Load\",  ((mean(\"memory.total\")-mean(\"memory.free\"))/mean(\"memory.total\")) AS \"Memory Usage\" FROM \"node\" WHERE \"nodeid\" =~ /$node$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+          "query": "SELECT mean(\"load\") AS \"Load\",  ((mean(\"memory.total\")-mean(\"memory.available\"))/mean(\"memory.total\")) AS \"Memory Usage\" FROM \"node\" WHERE \"nodeid\" =~ /$node$/ AND $timeFilter GROUP BY time($interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -442,7 +442,7 @@
             [
               {
                 "params": [
-                  "(memory.total-memory.free)/memory.total"
+                  "(memory.total-memory.available)/memory.total"
                 ],
                 "type": "field"
               },
