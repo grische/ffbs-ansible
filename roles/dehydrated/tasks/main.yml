@@ -18,4 +18,9 @@
     regexp: "^HOOK="
     line: "HOOK=/etc/dehydrated/hook.sh"
   notify:
-  - Run dehytrated
+  - Run dehydrated
+- name: Create cronjob
+  copy:
+    src: 'dehydrated'
+    dest: '/etc/cron.weekly/'
+    mode: 0755

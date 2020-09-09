@@ -1,0 +1,4 @@
+#!/bin/sh
+dehydrated --cron
+# restart nginx with new certs
+systemctl restart nginx
