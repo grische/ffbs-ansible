@@ -1,26 +1,24 @@
 # managed by Ansible
 location / {
-	alias /var/www/firmware/;
-	index index.html;
-	fancyindex on;
-	fancyindex_name_length 255;
-	#fancyindex_localtime on;
+  alias /var/www/firmware/;
+  index index.html;
+  fancyindex on;
+  fancyindex_name_length 255;
+  #fancyindex_localtime on;
 }
 
-location /raw {
-	alias /var/www/firmware;
-	index none;
-	fancyindex on;
-	fancyindex_name_length 255;
-	#fancyindex_localtime on;
+location = / {
+  return 303 https://firmware.freifunk-bs.de/selector/;
 }
+
+location /selector/ {
+  alias /var/www/firmware-selector/;
+  index index.html;
+}
+
 
 location /.git {
-	deny all;
-	return 404;
+  deny all;
+  return 404;
 }
 
-location /raw/.git {
-	deny all;
-	return 404;
-}

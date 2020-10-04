@@ -24,5 +24,11 @@
 - name: Install from git
   become: true
   git:
-    repo: 'https://github.com/ffbs/freifunk-firmware-index.git'
-    dest: /var/www/firmware
+    repo: 'https://gitli.stratum0.org/ffbs/gluon-firmware-selector.git'
+    dest: /var/www/firmware-selector
+- name: Create firmware directory
+  become: true
+  file:
+    path: /var/www/firmware
+    state: directory
+    mode: '0755'
