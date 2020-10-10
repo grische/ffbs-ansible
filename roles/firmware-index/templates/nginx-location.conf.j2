@@ -8,7 +8,14 @@ location / {
 }
 
 location = / {
-  return 303 https://firmware.freifunk-bs.de/selector/;
+  return 303 https://$host/selector/;
+}
+
+location /raw {
+  alias /var/www/firmware;
+  index none;
+  fancyindex on;
+  fancyindex_name_length 255;
 }
 
 location /selector/ {
