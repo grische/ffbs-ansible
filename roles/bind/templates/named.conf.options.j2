@@ -19,6 +19,7 @@ options {
 	listen-on-v6 { any; };
 
 	recursion yes;
+	minimal-responses no-auth-recursive; # avoid large authority sections for recursive clients
 	max-cache-size 128M; # default is unlimited
 	allow-query { freifunk; };
 {% if dns_forwarders %}
