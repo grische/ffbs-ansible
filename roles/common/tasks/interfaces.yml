@@ -1,3 +1,8 @@
+- name: Add /etc/network/interfaces.d
+  file:
+    path: /etc/network/interfaces.d
+    state: directory
+
 - name: Set /etc/network/interfaces include path
   # FIXME maybe rename files to *.cfg to avoid this?
   become: true
