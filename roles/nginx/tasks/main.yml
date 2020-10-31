@@ -20,6 +20,8 @@
     state: "{{ 'present' if nginx_tls else 'absent' }}"
   notify:
     - Run dehydrated
+- name: Flush Handlers
+  meta: flush_handlers
 
 - name: Check if we have a cert
   stat:
