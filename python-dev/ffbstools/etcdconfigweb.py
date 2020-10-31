@@ -21,6 +21,9 @@ except ModuleNotFoundError:
 
 RETRY_TIME_FOR_REGISTERED=600
 
+requests_failed = 0
+requests_successful = 0
+
 class ResolveError(Exception):
     pass
 
@@ -79,6 +82,7 @@ async def config_for(pubkey_esc, no_retry=False):
     return config
 
 async def web_config(request):
+    global requests_failed, requests_successful
     try:
         v6mtu = request.query.get('v6mtu', None)
         if v6mtu is not None:
@@ -107,15 +111,25 @@ async def web_config(request):
             raw['time'] = int(time.time())
             conf = json.dumps(raw)+'\n'
             sig = await get_signature(conf)
+            requests_successful += 1
             return web.Response(content_type='text/plain', text=conf+sig)
         else:
+            requests_failed += 1
             return web.Response(status=400)
     else:
+        requests_failed += 1
         return web.Response(status=400)
+
+async def web_etcd_status(request):
+    raw = await etcd_client.range_keys(key_range=range_prefix('/config/'))
+    node_count = len([1 for key, _ in raw if b'id' in key])
+    status = dict(requestsFailed=requests_failed, requestsSuccessful=requests_successful, nodesConfigured=node_count)
+    return web.Response(content_type='application/json', text=json.dumps(status))
 
 def main():
     app = web.Application()
     app.router.add_get('/config', web_config)
+    app.router.add_get('/etcd_status', web_etcd_status)
     loop = asyncio.get_event_loop()
     handler = app.make_handler()
     f = loop.create_server(handler, ('::','0.0.0.0'), 8080)
