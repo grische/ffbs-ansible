@@ -19,6 +19,9 @@
     dest: /etc/influxdb/influxdb.conf
   notify: restart influxdb
 
+- name: Flush Handlers
+  meta: flush_handlers
+
 - name: Prepare influxdb ffbs
   shell: |
     influx -execute 'CREATE DATABASE ffbs'
