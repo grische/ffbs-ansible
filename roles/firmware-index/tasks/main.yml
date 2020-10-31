@@ -2,7 +2,7 @@
 - name: Install required packages
   become: true
   apt: name=git state=present update_cache=yes
-- name: Configurate firmware anycase address on the vrf
+- name: Configurate firmware anycast address on the vrf
   copy:
     src:  'vrf.conf'
     dest: '/etc/systemd/system/nginx.service.d/'
