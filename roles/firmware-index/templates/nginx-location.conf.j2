@@ -8,8 +8,15 @@ location / {
 }
 
 location = / {
+  if ($host = "web.ffbs") {
+    return 303 $scheme://$host/selector/;
+  }
+  if ($host = "map.ffbs") {
+    return 303 $scheme://$host/meshviewer/;
+  }
   return 303 https://$host/selector/;
 }
+
 
 location /raw {
   alias /var/www/firmware;
