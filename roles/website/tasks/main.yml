@@ -35,8 +35,36 @@
   - website-extras.timer
   notify: enable website-extras timer
 
-- name: Configure nginx location
+- name: Configure nginx location for master
+  vars:
+    branch: "master"
   template:
     src: nginx-location.conf.j2
     dest: /etc/nginx/site-default.d/50-website.conf
   notify: reload nginx
+
+- name: Create nginx testbed snippet directory
+  file:
+    path: "/etc/nginx/site-testbed.d"
+    state: directory
+
+- name: Configure nginx location for testbed
+  vars:
+    branch: "testbed"
+  template:
+    src: nginx-location.conf.j2
+    dest: /etc/nginx/site-testbed.d/50-website.conf
+  notify: reload nginx
+
+- name: Create nginx config for testbed
+  template:
+    src: "testbed.j2"
+    dest: "/etc/nginx/sites-available/testbed"
+
+- name: Activate nginx config for testbed
+  file:
+    src: /etc/nginx/sites-available/testbed
+    dest: /etc/nginx/sites-enabled/testbed
+    state: link
+  notify:
+    - Reload nginx

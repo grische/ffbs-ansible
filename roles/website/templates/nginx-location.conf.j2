@@ -1,5 +1,6 @@
 # {{ ansible_managed }}
 
+{% if branch == 'master' %}
 location = / {
         if ($host = "web.ffbs") {
                 return 303 $scheme://$host/firmware/;
@@ -7,11 +8,12 @@ location = / {
         if ($host = "map.ffbs") {
                 return 303 $scheme://$host/map/;
         }
-        alias /var/www/website/master/htdocs/;
+        alias /var/www/website/{{ branch }}/htdocs/;
 }
+{% endif %}
 
 location / {
-        alias /var/www/website/master/htdocs/;
+        alias /var/www/website/{{ branch }}/htdocs/;
 }
 
 location = /nodecount {
