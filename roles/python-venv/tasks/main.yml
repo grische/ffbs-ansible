@@ -11,7 +11,7 @@
     path: "/vagrant/python-dev"
     state: directory
 - name: Synchronize python-dev
-  become: false
+  become: true
   synchronize:
     src: python-dev/
     dest: /vagrant/python-dev/
@@ -26,4 +26,5 @@
     . /srv/venv/bin/activate
 
     cd /vagrant/python-dev
+    pip install --upgrade pip setuptools
     pip install --upgrade .
