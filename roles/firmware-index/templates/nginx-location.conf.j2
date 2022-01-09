@@ -1,20 +1,15 @@
 # managed by Ansible
-location / {
-  alias /var/www/firmware/;
+location /parker_beta {
+  root /var/www/firmware/;
   index index.html;
   fancyindex on;
   fancyindex_name_length 255;
-  #fancyindex_localtime on;
 }
-
-location = / {
-  if ($host = "web.ffbs") {
-    return 303 $scheme://$host/selector/;
-  }
-  if ($host = "map.ffbs") {
-    return 303 $scheme://$host/meshviewer/;
-  }
-  return 303 https://$host/selector/;
+location /parker_stable {
+  root /var/www/firmware/;
+  index index.html;
+  fancyindex on;
+  fancyindex_name_length 255;
 }
 
 
@@ -25,7 +20,8 @@ location /raw {
   fancyindex_name_length 255;
 }
 
-location /selector/ {
+
+location /firmware/ {
   alias /var/www/firmware-selector/;
   index index.html;
 }
@@ -35,4 +31,3 @@ location /.git {
   deny all;
   return 404;
 }
-

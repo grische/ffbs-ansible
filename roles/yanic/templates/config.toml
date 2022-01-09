@@ -32,6 +32,10 @@ graph_path = "{{ yanic_meshviewer_graph }}"
 enable = true
 path   = "/srv/yanic/pub/meshviewer.json"
 
+[[nodes.output.nodelist]]
+enable = true
+path   = "/srv/yanic/pub/nodelist.json"
+
 [database]
 delete_after    = "{{ yanic_database_delete_after }}"
 delete_interval = "{{ yanic_database_delete_interval }}"

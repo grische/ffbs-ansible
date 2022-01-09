@@ -69,6 +69,7 @@
   - global.json
   - node.json
   - parker.json
+  - website.json
 
 - name: Enable grafana
   service:

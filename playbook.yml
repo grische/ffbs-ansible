@@ -56,6 +56,7 @@
     - grafana
     - yanic
     - meshviewer
+    - website
 - hosts:
   - client
   - concentrator1

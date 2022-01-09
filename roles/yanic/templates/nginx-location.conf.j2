@@ -2,3 +2,12 @@
 location /data {
 	alias /srv/yanic/pub/;
 }
+
+location = /nodes.json {
+        root /srv/yanic/pub;
+}
+
+location = /nodelist.json {
+        root /srv/yanic/pub;
+}
+
