@@ -3,6 +3,7 @@ Description=Configure wireguard peers for nodes
 
 [Service]
 Type=simple
+Environment="PYTHONUNBUFFERED=1"
 ExecStart=/srv/venv/bin/ffbs-concentrator-config
 Restart=always
 RestartSec=10

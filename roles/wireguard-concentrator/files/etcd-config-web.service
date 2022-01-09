@@ -3,6 +3,7 @@ Description=Serve client configurations from etcd via HTTP
 
 [Service]
 Type=simple
+Environment="PYTHONUNBUFFERED=1"
 ExecStart=/srv/venv/bin/ffbs-etcd-config-web
 Restart=always
 RestartSec=10
