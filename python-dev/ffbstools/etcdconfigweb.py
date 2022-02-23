@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import asyncio
+import base64
+import binascii
 import json
 import socket
 import time
@@ -89,12 +91,17 @@ async def web_config(request):
             v6mtu = int(v6mtu)
     except:
         print("failed to handle v6mtu: {}".format(v6mtu))
-        pass
-    if 'pubkey' in request.query and 'nonce' in request.query and util.verify_pubkey(request.query.get('pubkey')):
+        v6mtu = None
+    if 'pubkey' in request.query and 'nonce' in request.query and v6mtu:
         pubkey = request.query.get('pubkey').replace(' ','+')
-        pubkey_esc = util.escape_pubkey(pubkey)
+        try:
+            raw_pubkey = base64.standard_b64decode(pubkey)
+            pubkey_esc = base64.urlsafe_b64encode(raw_pubkey)
+            pubkey_valid = (len(raw_pubkey) == 32)
+        except binascii.Error:
+            pubkey_valid = False
         nonce = request.query.get('nonce')
-        if pubkey_esc and nonce:
+        if pubkey_valid and pubkey_esc and nonce:
             raw = await config_for(pubkey_esc)
             force_v4 = ':' not in request.headers.get('x-real-ip', '')
             if v6mtu is not None and v6mtu < 1455:

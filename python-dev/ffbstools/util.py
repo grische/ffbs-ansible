@@ -1,5 +1,3 @@
-import binascii
-import codecs
 import ipaddress
 
 def addresses_from_number(num):
@@ -21,11 +19,4 @@ def escape_pubkey(pubkey):
 
 def unescape_pubkey(key):
     return key.replace('-','+').replace('_','/')
-
-def verify_pubkey(pubkey):
-    try:
-        raw = codecs.decode(pubkey.encode(), 'base64')
-        return len(raw) == 32
-    except binascii.Error:
-        return False
 
