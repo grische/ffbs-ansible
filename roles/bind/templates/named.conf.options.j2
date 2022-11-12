@@ -30,6 +30,10 @@ options {
 {% endfor %}
 	};
 {% endif %}
+
+	allow-transfer { none; };
+
+	response-policy { zone "rpz"; };
 };
 
 statistics-channels {
