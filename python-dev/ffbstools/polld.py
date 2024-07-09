@@ -11,14 +11,16 @@ from copy import deepcopy
 
 import aiohttp
 from aioetcd3.help import range_prefix
-from influxdb import InfluxDBClient
+#from influxdb import InfluxDBClient
+from aioinflux import InfluxDBClient
 
 from ffbstools.etcd import etcd_client
 
 POLL_INTERVAL = 60
 PRUNE_INTERVAL = 5*POLL_INTERVAL
 CONFIG_PREFIX = '/config/'
-YANIC_ADDR = ('::1', 11001)
+#YANIC_ADDR = ('::1', 11001)
+YANIC_ADDR = ('2001:bf7:381::3:1', 11001)
 REQUEST = 'GET nodeinfo statistics neighbours wireguard'.encode('ascii')
 
 # dict of mesh mac addresses of indirect nodes, with {ip: insertion time} as value
@@ -208,6 +210,9 @@ class ResponddProtocol:
 
         etcd_nodes.queue(info['nodeinfo'])
 
+    def error_received(self, exc):
+        print('error_received', exc)
+
 class EtcdNodes:
     def __init__(self):
         self._prev = {}
@@ -374,7 +379,13 @@ async def task_influxdb_writer():
         if not pending:
             continue
         start = time.monotonic()
-        await loop.run_in_executor(None, influx.write_points, pending)
+        try:
+            print("writing {} points to influxdb".format(len(pending)))
+            #await loop.run_in_executor(None, influx.write_points, pending)
+            await influx.write(pending)
+        except Exception:  # pylint: disable=broad-except
+            traceback.print_exc()
+            continue
         delay = time.monotonic() - start
         print("wrote {} points to influxdb in {} seconds".format(len(pending), delay))
 
@@ -402,7 +413,8 @@ def mac_to_ipv6(mac, prefix):
 
 trace = None
 #trace = open('/tmp/polld-trace', 'w')
-influx = InfluxDBClient(database='ffbs')
+#influx = InfluxDBClient(database='ffbs')
+influx = InfluxDBClient(unix_socket='/run/influxdb/influxdb.sock', db='ffbs')
 etcd_nodes = EtcdNodes()
 
 try:
