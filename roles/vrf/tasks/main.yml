@@ -28,3 +28,13 @@
     mode: "0644"
 - name: Activate freifunk vrf interface
   command: ifup freifunk
+- name: Add VRF-specific resolv.conf
+  copy:
+    src: 'resolv.conf.freifunk'
+    dest: '/etc/resolv.conf.freifunk'
+    mode: 0644
+- name: Add enter-freifunk helper script
+  copy:
+    src: 'enter-freifunk'
+    dest: '/root/enter-freifunk'
+    mode: 0755
