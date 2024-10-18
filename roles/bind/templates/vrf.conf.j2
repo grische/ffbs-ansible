@@ -2,7 +2,11 @@
 ExecStart=
 ExecStartPre=/sbin/ip addr replace 172.16.0.53/32 dev freifunk preferred_lft 0
 ExecStartPre=/sbin/ip addr replace 2001:bf7:382:0::53/128 dev freifunk preferred_lft 0
+{% if apt_default_release in ['bookworm'] %}
+ExecStart=/sbin/ip vrf exec freifunk /usr/sbin/named -f $OPTIONS
+{% else %}
 ExecStart=/sbin/ip vrf exec freifunk /usr/sbin/named $OPTIONS
+{% endif %}
 ExecReload=
 ExecStop=
 ExecStopPost=-/sbin/ip addr del 172.16.0.53/32 dev freifunk
