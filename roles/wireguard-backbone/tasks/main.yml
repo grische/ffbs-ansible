@@ -20,9 +20,9 @@
     dest: '/etc/systemd/system/'
     mode: 644
 
-- name: Enable and start etcd-wireguard-export.service
+- name: Disable and stop etcd-wireguard-export.service
   systemd:
     daemon_reload: yes
     name: etcd-wireguard-export.service
-    state: started
-    enabled: yes
+    state: stopped
+    enabled: no
