@@ -1,9 +1,0 @@
-router_id: '172.16.3.1'
-etcd_peer_ip: '172.16.3.1'
-wg_private_key: '{{ vault_wg_private_key }}'
-wg_public_key: 'nt1fQS//EQiaXkN0TXPmjSos6lZejzmbfhXjeW4tURA='
-wg_backbone_grp: '3'
-wg_backbone_id: '1'
-wg_hostname: '{{ ansible_host }}'
-wg_peer_ifname: 'wg-w1'
-wg_peer_port: 2501

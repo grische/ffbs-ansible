@@ -1,0 +1,9 @@
+- name: Install Golang compiler
+  apt:
+    state: latest
+    name:
+      - golang
+- name: Install etcd-tools
+  shell: 'GOBIN=/usr/local/bin go install "gitli.stratum0.org/ffbs/etcd-tools/...@latest'
+  args:
+    creates: "/usr/local/bin/etcdconfigweb"

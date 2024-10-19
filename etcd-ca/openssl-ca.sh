@@ -2,7 +2,7 @@
 
 set -xe
 
-ORG="Freifunk Braunschweig"
+ORG="Freifunk München"
 CA="etcd CA"
 
 # After the CRL expires, signatures cannot be verified anymore
@@ -110,15 +110,15 @@ make_client_cert()
   touch flags/$1
 }
 
-make_server_cert concentrator1 172.16.1.1
-make_server_cert concentrator2 172.16.1.2
-make_server_cert concentrator3 172.16.1.3
+make_server_cert parker-vm01 172.16.1.1
+# make_server_cert concentrator2 172.16.1.2
+# make_server_cert concentrator3 172.16.1.3
 
-make_client_cert concentrator1
-make_client_cert concentrator2
-make_client_cert concentrator3
-make_client_cert exit1
-make_client_cert web
+make_client_cert parker-vm01
+# make_client_cert concentrator2
+# make_client_cert concentrator3
+# make_client_cert exit1
+# make_client_cert web
 
 mkdir -p $TARGET
 cp $BASE/ca.cert.pem $TARGET/etcd-ca.pem

@@ -1,0 +1,12 @@
+---
+- hosts: Concentrators
+  roles:
+    - common-ffmuc
+    - wireguard
+    - vrf
+    - bird
+    - etcd
+    - etcd-client
+    - nginx
+    - wireguard-concentrator
+    - bind

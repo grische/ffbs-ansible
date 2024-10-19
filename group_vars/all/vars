@@ -1,3 +1,0 @@
-wg_mtu: '1375'
-apt_mirror: 'http://ftp.de.debian.org/debian'
-dns_forwarders: []

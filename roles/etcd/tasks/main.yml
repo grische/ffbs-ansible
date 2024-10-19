@@ -6,7 +6,6 @@
 - name: Install etcd packages
   apt:
     state: present
-    default_release: unstable
     name:
       - etcd-client
       - etcd-server

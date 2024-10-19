@@ -1,6 +1,0 @@
-wg_private_key: '{{ vault_wg_private_key }}'
-wg_public_key: 'KJn3e2+40l5lHS4zDd5PdrUXGADJqGOYaLH54pbpY1o='
-wg_node_range_v4: '10.1.1.0/24'
-wg_node_address_v4: '10.1.0.2'
-wg_node_range_v6: '2001:bf7:380:0:2::/64'
-wg_node_address_v6: '2001:bf7:380:0:2::1'
