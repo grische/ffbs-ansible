@@ -1,5 +1,5 @@
 - name: Install etcd client package
-  apt: name=etcd-client state=present default_release=unstable
+  apt: name=etcd-client state=present
 - name: Copy the etcd CA
   copy:
     src: "etcd-ca.pem"

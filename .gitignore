@@ -9,5 +9,7 @@
 /testinfra-venv
 /etcd-ca/output
 
+/venv/
+
 __pycache__/
 *.swp
