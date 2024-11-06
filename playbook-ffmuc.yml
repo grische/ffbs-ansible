@@ -1,13 +1,35 @@
 ---
-- hosts: Concentrators
-  become: yes
+- hosts: all:!UCI-Nodes
+  become: True
   roles:
+    # - users
     - common-ffmuc
     - wireguard
+
+- hosts:
+  - Backbone
+  strategy: free
+  become: True
+  roles:
     - vrf
     - bird
+    # - wireguard-backbone
+
+- hosts: etcd_cluster
+  become: True
+  roles:
     - etcd
+
+- hosts: etcd_clients
+  become: True
+  roles:
     - etcd-client
+
+- hosts: Concentrators
+  become: True
+  roles:
     - nginx
     - wireguard-concentrator
     - bind
+    # - bind-reverse
+    # - chrony

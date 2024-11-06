@@ -8,10 +8,16 @@ See <https://gitli.stratum0.org/ffbs/ffbs-ansible>
 1. Create an inventory file `ffmuc-inventory` with the parker gateway at 192.168.0.2. For example:
 
    ```ini
-   [Concentrators]
+   [Backbone]
    parker-vm01 ansible_host=192.168.0.2
 
    [etcd_cluster]
+   parker-vm01 ansible_host=192.168.0.2
+
+   [etcd_clients]
+   parker-vm01 ansible_host=192.168.0.2
+
+   [Concentrators]
    parker-vm01 ansible_host=192.168.0.2
    ```
 
