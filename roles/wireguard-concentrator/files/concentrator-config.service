@@ -1,10 +1,9 @@
 [Unit]
-Description=Configure wireguard peers for nodes
+Description=Configure wireguard peers for nodes (Go implementation)
 
 [Service]
 Type=simple
-Environment="PYTHONUNBUFFERED=1"
-ExecStart=/srv/venv/bin/ffbs-concentrator-config
+ExecStart=/usr/local/bin/concentratorconfig
 Restart=always
 RestartSec=10
 StartLimitInterval=0

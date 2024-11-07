@@ -1,3 +1,4 @@
+---
 - name: Install concentrator services
   copy:
     src:  "{{ item.src }}"
@@ -12,16 +13,17 @@
   copy:
     src:  "{{ item }}"
     dest: "/etc/ffbs/"
+    mode: 0644
   with_items:
     - 'node-config.sec'
     - 'node-config.pub'
 
 - name: Enable and start systemd service
-  systemd:
-    daemon_reload: yes
+  ansible.builtin.systemd_service:
+    daemon_reload: true
     name: "{{ item }}"
     state: started
-    enabled: yes
+    enabled: true
   with_items:
     - etcd-config-web.service
     - concentrator-route.service
@@ -31,5 +33,6 @@
   template:
     src: nginx-location.conf.j2
     dest: /etc/nginx/site-default.d/50-concentrator.conf
+    mode: 0644
   notify:
     - Reload nginx

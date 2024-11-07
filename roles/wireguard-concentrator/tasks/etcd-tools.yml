@@ -1,0 +1,13 @@
+---
+- name: Install Golang compiler
+  ansible.builtin.apt:
+    state: present
+    name:
+      - golang
+
+- name: Install etcd-tools
+  ansible.builtin.shell:
+    cmd: |
+      GOBIN=/usr/local/bin go install "gitli.stratum0.org/ffbs/etcd-tools/...@latest"
+  args:
+    creates: "/usr/local/bin/etcdconfigweb"

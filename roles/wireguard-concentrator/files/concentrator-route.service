@@ -1,13 +1,9 @@
 [Unit]
-Description=Configure routing for connected nodes
+Description=Concentrator Route placeholder
 
 [Service]
 Type=simple
-Environment="PYTHONUNBUFFERED=1"
-ExecStart=/srv/venv/bin/ffbs-concentrator-route
-Restart=always
-RestartSec=10
-StartLimitInterval=0
+ExecStart=true
 
 [Install]
 WantedBy=multi-user.target
