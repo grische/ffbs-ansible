@@ -1,2 +1,3 @@
+- import_tasks: etcd-tools.yml
 - import_tasks: wireguard.yml
 - import_tasks: services.yml

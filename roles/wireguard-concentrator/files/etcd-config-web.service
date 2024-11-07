@@ -1,10 +1,9 @@
 [Unit]
-Description=Serve client configurations from etcd via HTTP
+Description=Serve client configurations from etcd via HTTP (Go implementation)
 
 [Service]
 Type=simple
-Environment="PYTHONUNBUFFERED=1"
-ExecStart=/srv/venv/bin/ffbs-etcd-config-web
+ExecStart=/usr/local/bin/etcdconfigweb
 Restart=always
 RestartSec=10
 StartLimitInterval=0
