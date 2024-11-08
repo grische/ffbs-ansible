@@ -20,34 +20,34 @@ ntp.any   IN    A       172.16.0.23
 ntp.any   IN    AAAA    2001:bf7:382::23
 ; concentrators in core
 c1.core   IN    A       172.16.1.1
-c1.core   IN    AAAA    2001:bf7:381::1:1
+c1.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::1:1
 c2.core   IN    A       172.16.1.2
-c2.core   IN    AAAA    2001:bf7:381::1:2
+c2.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::1:2
 c3.core   IN    A       172.16.1.3
-c3.core   IN    AAAA    2001:bf7:381::1:3
+c3.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::1:3
 c4.core   IN    A       172.16.1.4
-c4.core   IN    AAAA    2001:bf7:381::1:4
+c4.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::1:4
 ; exits
 e1.core   IN    A       172.16.2.1
-e1.core   IN    AAAA    2001:bf7:381::2:1
+e1.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::2:1
 e2.core   IN    A       172.16.2.2
-e2.core   IN    AAAA    2001:bf7:381::2:2
+e2.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::2:2
 e3.core   IN    A       172.16.2.3
-e3.core   IN    AAAA    2001:bf7:381::2:3
+e3.core   IN    AAAA    {{ global_ipv6_range_without_prefix }}::2:3
 ; web
 web       IN    A       172.16.3.1
-web       IN    AAAA    2001:bf7:381::3:1
+web       IN    AAAA    {{ global_ipv6_range_without_prefix }}::3:1
 map       CNAME web
 ; concentrators in vpn
 c1.vpn    IN    A       10.0.0.1
-c1.vpn    IN    AAAA    2001:bf7:381::1
+c1.vpn    IN    AAAA    {{ global_ipv6_range_without_prefix }}::1
 c2.vpn    IN    A       10.0.0.2
-c2.vpn    IN    AAAA    2001:bf7:381::2
+c2.vpn    IN    AAAA    {{ global_ipv6_range_without_prefix }}::2
 c3.vpn    IN    A       10.0.0.3
-c3.vpn    IN    AAAA    2001:bf7:381::3
+c3.vpn    IN    AAAA    {{ global_ipv6_range_without_prefix }}::3
 c4.vpn    IN    A       10.0.0.4
-c4.vpn    IN    AAAA    2001:bf7:381::4
-; local node 
+c4.vpn    IN    AAAA    {{ global_ipv6_range_without_prefix }}::4
+; local node
 node IN A    172.16.0.1
 node IN AAAA 2001:bf7:382::1
 nodeinfo CNAME node

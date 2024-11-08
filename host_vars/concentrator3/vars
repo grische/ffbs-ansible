@@ -8,4 +8,4 @@ wg_hostname: '{{ ansible_host }}'
 wg_peer_ifname: 'wg-c3'
 wg_peer_port: 2303
 wg_gateway_v4: '10.0.0.3'
-wg_gateway_v6: '2001:bf7:381::3'
+wg_gateway_v6: '{{ global_ipv6_range_without_prefix }}::3'

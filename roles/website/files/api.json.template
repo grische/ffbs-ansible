@@ -49,7 +49,7 @@
     "networks": {
       "ipv6": [
         {
-          "network": "2001:bf7:381::/50"
+          "network": "{{ global_ipv6_range_without_prefix }}::/50"
         }
       ],
       "ipv4": [

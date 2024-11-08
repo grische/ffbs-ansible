@@ -2,7 +2,7 @@
 acl freifunk {
 	10.0.0.0/8;
 	172.16.0.0/16;
-	2001:bf7:380::/44;
+	{{ global_ipv6_range_without_prefix }}::/{{ global_ipv6_range_prefix }};
 	localhost;
 };
 
