@@ -1,2 +1,2 @@
-global_ipv6_range_without_prefix: '2001:db8:4242'
-global_ipv6_range_prefix: '48'
+global_ipv6_range_without_prefix: '2a09:7002:101:2d50'
+global_ipv6_range_prefix: '60'
