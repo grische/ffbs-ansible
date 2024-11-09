@@ -10,7 +10,7 @@ wg_private_key: !vault |
   35626266616163666133633664613062623062666230333439643064373964643063313861663261
   3532613733356134623565313536613766353161343166323635
 wg_public_key: 'jWNo+ibZo7+XNPN1Jnl8PERambiXnQV262yilw5oSnE='
-wg_concentrator_id: '1'
+wg_backbone_id: '1'
 wg_hostname: '{{ ansible_host }}'
 wg_gateway_v4: '10.0.0.1'
 wg_gateway_v6: '{{ global_ipv6_range_without_prefix }}::beef'
