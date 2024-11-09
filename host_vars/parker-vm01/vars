@@ -16,4 +16,4 @@ wg_hostname: '{{ ansible_host }}'
 wg_peer_ifname: 'wg-c1'
 wg_peer_port: 2301
 wg_gateway_v4: '10.0.0.1'
-wg_gateway_v6: '2001:bf7:381::1'
+wg_gateway_v6: '{{ global_ipv6_range_without_prefix }}::beef'
