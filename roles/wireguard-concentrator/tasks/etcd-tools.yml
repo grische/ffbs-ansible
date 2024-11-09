@@ -8,6 +8,6 @@
 - name: Install etcd-tools
   ansible.builtin.shell:
     cmd: |
-      GOBIN=/usr/local/bin go install "gitli.stratum0.org/ffbs/etcd-tools/...@latest"
+      GOBIN=/usr/local/bin go install "github.com/freifunkMUC/etcd-tools/...@7c151f176ad664478a72407ee45ff7968e7d8629"
   args:
     creates: "/usr/local/bin/etcdconfigweb"
