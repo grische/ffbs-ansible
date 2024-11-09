@@ -10,7 +10,7 @@
   strategy: free
   become: true
   roles:
-    - vrf
+    # - vrf
     - bird
     # - wireguard-backbone
 

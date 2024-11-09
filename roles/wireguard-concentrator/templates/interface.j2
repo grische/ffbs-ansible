@@ -5,7 +5,7 @@ Name={{ ifname }}
 [Network]
 DHCP=no
 IPv6AcceptRA=no
-VRF=freifunk
+#VRF=freifunk
 {% if 'wg_gateway_v4' in vars %}
 Address={{ wg_gateway_v4 }}/32
 {% else %}
