@@ -1,3 +1,5 @@
 wg_mtu: '1375'
 dns_forwarders:
 - '2001:678:ed0:f000::'
+dns_ip_v4: '172.16.0.53'
+dns_ip_v6: '2001:bf7:382::53'

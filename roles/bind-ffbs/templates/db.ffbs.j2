@@ -12,8 +12,8 @@ $TTL    900
 ;
 @	IN	NS	dns.any.ffbs.
 ; anycast services
-dns.any   IN    A       172.16.0.53
-dns.any   IN    AAAA    2001:bf7:382::53
+dns.any   IN    A       {{ dns_ip_v4 }}
+dns.any   IN    AAAA    {{ dns_ip_v6 }}
 firmware.any IN A       172.16.0.80
 firmware.any IN AAAA    2001:bf7:382::80
 ntp.any   IN    A       172.16.0.23

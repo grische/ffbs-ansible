@@ -1,1 +1,1 @@
-nameserver 172.16.0.53
+nameserver {{ dns_ip_v4 }}
