@@ -5,9 +5,14 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
-    - { src: 'etcd-config-web.service', dest: '/etc/systemd/system/', mode: 644 }
     - { src: 'concentrator-route.service', dest: '/etc/systemd/system/', mode: 644 }
     - { src: 'concentrator-config.service', dest: '/etc/systemd/system/', mode: 644 }
+
+- name: Install etcd-config-web.service
+  template:
+    src: etcd-config-web.service.j2
+    dest: /etc/systemd/system/etcd-config-web.service
+    mode: 0644
 
 - name: Copy nodeconfig certificates
   copy:
