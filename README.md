@@ -21,13 +21,10 @@ See <https://gitli.stratum0.org/ffbs/ffbs-ansible>
    parker-vm01 ansible_host=192.168.0.2
    ```
 
-1. Generate a new wireguard keypair and add them to [parker-vm01/vars](host_vars/parker-vm01/vars)
+1. Generate a new wireguard keypair and add them to the respective [host_vars](host_vars/)
 
    ```sh
-   privkey=$(wg genkey)
-   pubkey=$(wg pubkey <<< ${privkey})
-   echo "wg_private_key: '${privkey}'"
-   echo "wg_public_key: '${pubkey}'"
+   ./wireguard-keygen.sh
    ```
 
 1. Generate custom certificates:
