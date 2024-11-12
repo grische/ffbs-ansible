@@ -9,16 +9,16 @@ See <https://gitli.stratum0.org/ffbs/ffbs-ansible>
 
    ```ini
    [Backbone]
-   parker-vm01 ansible_host=192.168.0.2
+   parker-gw01 ansible_host=192.168.0.2
 
    [etcd_cluster]
-   parker-vm01 ansible_host=192.168.0.2
+   parker-gw01 ansible_host=192.168.0.2
 
    [etcd_clients]
-   parker-vm01 ansible_host=192.168.0.2
+   parker-gw01 ansible_host=192.168.0.2
 
    [Concentrators]
-   parker-vm01 ansible_host=192.168.0.2
+   parker-gw01 ansible_host=192.168.0.2
    ```
 
 1. Generate a new wireguard keypair and add them to the respective [host_vars](host_vars/)

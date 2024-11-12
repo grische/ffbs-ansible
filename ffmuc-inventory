@@ -1,0 +1,23 @@
+[Backbone]
+parker-gw01 ansible_host=194.61.20.141
+parker-gw02 ansible_host=2a09:7002:100:2c8::1
+parker-gw03 ansible_host=2a09:7002:100:2cc::1
+parker-gw04 ansible_host=2a09:7002:100:2d5::1
+
+[etcd_cluster]
+parker-gw01 ansible_host=194.61.20.141
+parker-gw02 ansible_host=2a09:7002:100:2c8::1
+parker-gw03 ansible_host=2a09:7002:100:2cc::1
+parker-gw04 ansible_host=2a09:7002:100:2d5::1
+
+[etcd_clients]
+parker-gw01 ansible_host=194.61.20.141
+parker-gw02 ansible_host=2a09:7002:100:2c8::1
+parker-gw03 ansible_host=2a09:7002:100:2cc::1
+parker-gw04 ansible_host=2a09:7002:100:2d5::1
+
+[Concentrators]
+parker-gw01 ansible_host=194.61.20.141
+parker-gw02 ansible_host=2a09:7002:100:2c8::1
+parker-gw03 ansible_host=2a09:7002:100:2cc::1
+parker-gw04 ansible_host=2a09:7002:100:2d5::1

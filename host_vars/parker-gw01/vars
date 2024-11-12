@@ -12,5 +12,7 @@ wg_private_key: !vault |
 wg_public_key: 'HxEDblNTIncBx3MiT535/JPbZDlnSdtC/+rEokOb0Hk='
 wg_backbone_id: '1'
 wg_hostname: '{{ ansible_host }}'
+# global_ipv6_range_without_prefix: '2001:678:ed0:c001'
+# global_ipv6_range_prefix: '64'
 wg_gateway_v4: '10.0.0.1'
 wg_gateway_v6: '{{ global_ipv6_range_without_prefix }}::beef'
