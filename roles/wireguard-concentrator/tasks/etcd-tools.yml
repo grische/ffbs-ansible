@@ -5,9 +5,37 @@
     name:
       - golang
 
+- name: Get old etcdconfigweb checksum
+  ansible.builtin.stat:
+    path: /usr/local/bin/etcdconfigweb
+    get_checksum: true
+    follow: true
+    get_attributes: false
+    get_mime: false
+  register: old_checksum
+
 - name: Install etcd-tools
   ansible.builtin.shell:
     cmd: |
       GOBIN=/usr/local/bin go install "github.com/freifunkMUC/etcd-tools/...@17368fceef99947ea3a97f4d2c9284f9e061413e"
-  args:
-    creates: "/usr/local/bin/etcdconfigweb"
+  changed_when: false
+
+- name: Get new etcdconfigweb checksum
+  ansible.builtin.stat:
+    path: /usr/local/bin/etcdconfigweb
+    get_checksum: true
+    follow: true
+    get_attributes: false
+    get_mime: false
+  register: new_checksum
+
+- name: Check if etcd-tools have changed
+  ansible.builtin.assert:
+    that: true
+    quiet: true
+  changed_when: true
+  when:
+    - not old_checksum.stat.exists or
+      old_checksum.stat.checksum != new_checksum.stat.checksum
+  notify:
+    - Restart etcd-config-web
