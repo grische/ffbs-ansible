@@ -17,7 +17,7 @@
 - name: Install etcd-tools
   ansible.builtin.shell:
     cmd: |
-      GOBIN=/usr/local/bin go install "github.com/freifunkMUC/etcd-tools/...@17368fceef99947ea3a97f4d2c9284f9e061413e"
+      GOBIN=/usr/local/bin go install "github.com/freifunkMUC/etcd-tools/...@a2cfc9b71a63780142402996a1d8e7c3d101ce63"
   changed_when: false
 
 - name: Get new etcdconfigweb checksum
