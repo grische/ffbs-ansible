@@ -13,6 +13,8 @@
     src: etcd-config-web.service.j2
     dest: /etc/systemd/system/etcd-config-web.service
     mode: 0644
+  notify:
+    - Restart etcd-config-web
 
 - name: Copy nodeconfig certificates
   copy:
